@@ -14,7 +14,10 @@ class PelaksanaController extends Controller
      */
     public function index()
     {
-        //
+        return view('halaman.pelaksana.index', [
+            'title' => 'Data Pelaksana',
+            'pelaksana' => Pelaksana::get(),
+        ]);
     }
 
     /**
@@ -24,7 +27,9 @@ class PelaksanaController extends Controller
      */
     public function create()
     {
-        //
+        return view('halaman.pelaksana.create', [
+            'title' => 'Tambah Data Pelaksana',
+        ]);
     }
 
     /**
@@ -35,7 +40,22 @@ class PelaksanaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => ['required'],
+            'alamat' => ['required'],
+            'npwp' => ['required'],
+            'direktur' => ['required'],
+        ]);
+
+        Pelaksana::create([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'npwp' => $request->npwp,
+            'direktur' => $request->direktur,
+            'kontak' => $request->kotak,
+        ]);
+
+        return redirect('/app/pelaksana/')->with('status', 'Data telah disimpan');
     }
 
     /**
@@ -57,7 +77,10 @@ class PelaksanaController extends Controller
      */
     public function edit(Pelaksana $pelaksana)
     {
-        //
+        return view('halaman.pelaksana.edit', [
+            'title' => 'Ubah Data Pelaksana',
+            'pelaksana' => $pelaksana,
+        ]);
     }
 
     /**
@@ -69,7 +92,15 @@ class PelaksanaController extends Controller
      */
     public function update(Request $request, Pelaksana $pelaksana)
     {
-        //
+        $attributes = $request->validate([
+            'nama' => ['required'],
+            'alamat' => ['required'],
+            'npwp' => ['required'],
+            'direktur' => ['required'],
+        ]);
+        $pelaksana->update($attributes);
+
+        return redirect('/app/pelaksana/')->with('status', 'Data telah disimpan');
     }
 
     /**

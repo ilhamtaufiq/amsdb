@@ -8,6 +8,7 @@ use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PekerjaanController;
+use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -58,6 +59,8 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('role', RoleController::class);
         Route::resource('upload', FileUploadController::class);
         Route::resource('kontrak', KontrakController::class);
+        Route::resource('pelaksana', PelaksanaController::class);
+
         Route::get('kecamatan', [WilayahController::class, 'index'])->name('kecamatan');
     });
 }
