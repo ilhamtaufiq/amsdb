@@ -10,6 +10,8 @@ class DashboardController extends Controller
 {
     public function __construct(Request $request)
     {
+        $this->middleware('auth');
+
         $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
 
         $this->pekerjaan = Pekerjaan::with('kegiatan')->whereHas('kegiatan', function ($q) use ($ta) {

@@ -13,6 +13,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 
+Route::get('/', [DashboardController::class, 'index'])->name('/');
+
 Route::controller(RegisterController::class)->middleware('guest')->group(function () {
     Route::get('register', 'showRegistrationForm')->name('register');
     Route::post('register', 'registerUser')->name('register');
@@ -56,7 +58,7 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('role', RoleController::class);
         Route::resource('upload', FileUploadController::class);
         Route::resource('kontrak', KontrakController::class);
-        Route::get('kecamatan', [WilayahController::class, 'index']);
+        Route::get('kecamatan', [WilayahController::class, 'index'])->name('kecamatan');
     });
 }
 
