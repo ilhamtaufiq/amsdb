@@ -297,8 +297,8 @@
                                 &#x1F44B;
                             </div>
                             <div class="media-body">
-                                <h5>{{ Auth::user()->name }}</h5>
-                                <p class="">{{ Auth::user()->getRoleNames()->first() }}</p>
+                                <h5>{{ Auth::user()->name ?? '' }}</h5>
+                                <p class="">{{ Auth::user()->getRoleNames()->first() ?? '' }}</p>
                             </div>
                         </div>
                     </div>

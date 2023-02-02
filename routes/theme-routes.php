@@ -7,6 +7,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\NphdController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('/');
+// Route::get('/app/nphd/print', [NphdController::class, 'print'])->name('nphd.print');
 
 Route::controller(RegisterController::class)->middleware('guest')->group(function () {
     Route::get('register', 'showRegistrationForm')->name('register');
@@ -60,6 +62,7 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('upload', FileUploadController::class);
         Route::resource('kontrak', KontrakController::class);
         Route::resource('pelaksana', PelaksanaController::class);
+        Route::resource('nphd', NphdController::class);
 
         Route::get('kecamatan', [WilayahController::class, 'index'])->name('kecamatan');
     });

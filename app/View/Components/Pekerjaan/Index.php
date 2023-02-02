@@ -13,8 +13,6 @@ class Index extends Component
      */
     public function __construct(public $pekerjaan)
     {
-        $this->pekerjaan = $pekerjaan;
-        $kegiatan = $pekerjaan->kegiatan;
     }
 
     /**

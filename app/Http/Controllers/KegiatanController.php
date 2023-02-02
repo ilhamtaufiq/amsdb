@@ -19,7 +19,7 @@ class KegiatanController extends Controller
 
         return view('halaman.kegiatan.index', [
             'title' => 'Data Kegiatan',
-            'kegiatan' => Kegiatan::where('tahun_anggaran', $ta)->paginate(3),
+            'kegiatan' => Kegiatan::where('tahun_anggaran', $ta)->get(),
         ]);
     }
 

@@ -39,7 +39,7 @@ class PekerjaanController extends Controller
             'title' => 'Data Pekerjaan',
             'pekerjaan' => Pekerjaan::with('kegiatan', 'desa', 'kec')->whereHas('kegiatan', function ($q) use ($ta) {
                 $q->where('tahun_anggaran', $ta);
-            })->get(),
+            })->latest()->get(),
         ]);
     }
 
