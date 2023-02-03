@@ -54,6 +54,16 @@ class Pekerjaan extends Model
    }
 
    /**
+    * Get the nphd associated with the Pekerjaan
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    */
+   public function nphd()
+   {
+       return $this->hasOne(Nphd::class, 'pekerjaan_id', 'id');
+   }
+
+   /**
     * Get all of the file for the Pekerjaan
     *
     * @return \Illuminate\Database\Eloquent\Relations\HasMany

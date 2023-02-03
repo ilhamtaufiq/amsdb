@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nphd;
+use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
 class NphdController extends Controller
@@ -27,7 +28,11 @@ class NphdController extends Controller
      */
     public function create()
     {
-        //
+        return view('halaman.nphd.create',
+            [
+                'title' => 'Tambah NPHD',
+                'pekerjaan' => Pekerjaan::has('kontrak')->select('id', 'nama_pekerjaan')->get(),
+            ]);
     }
 
     /**
@@ -38,7 +43,23 @@ class NphdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pekerjaan_id' => ['required'],
+            'nomor' => ['required'],
+            'pengelola' => ['required'],
+            'ketua' => ['required'],
+            'bangunan' => ['required'],
+        ]);
+
+        Nphd::create([
+            'pekerjaan_id' => $request->pekerjaan_id,
+            'nomor' => $request->nomor,
+            'pengelola' => $request->pengelola,
+            'ketua' => $request->ketua,
+            'bangunan' => $request->bangunan,
+        ]);
+
+        return redirect(route('nphd.index'))->with('status', 'Data telah disimpan');
     }
 
     /**
@@ -88,7 +109,12 @@ class NphdController extends Controller
      */
     public function edit(Nphd $nphd)
     {
-        //
+        return view('halaman.nphd.edit', [
+            'title' => 'Edit Detail NPHD',
+            'pekerjaan' => Pekerjaan::has('kontrak')->select('id', 'nama_pekerjaan')->get(),
+            'nphd' => $nphd,
+
+        ]);
     }
 
     /**
@@ -100,7 +126,17 @@ class NphdController extends Controller
      */
     public function update(Request $request, Nphd $nphd)
     {
-        //
+        $attributes = $request->validate([
+            'pekerjaan_id' => ['required'],
+            'nomor' => ['required'],
+            'pengelola' => ['required'],
+            'ketua' => ['required'],
+            'bangunan' => ['required'],
+        ]);
+
+        $nphd->update($attributes);
+
+        return redirect(route('nphd.index'))->with('status', 'Data telah disimpan');
     }
 
     /**
