@@ -64,7 +64,7 @@
                     @foreach ($nphd as $nphd)
                       <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $nphd->nomor }}</td>
+                        <td>{{ $nphd->no_nphd }}</td>
                         <td>{{ $nphd->pekerjaan->nama_pekerjaan }}</td>
                         <td>{{ $nphd->pengelola }}</td>
                         <td>{{ $nphd->ketua }}</td>

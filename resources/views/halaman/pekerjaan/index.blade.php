@@ -44,7 +44,7 @@
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="statbox widget box box-shadow">
                             <div class="widget-content widget-content-area">
-                                <table id="html5-extension" class="table dt-table-hover" style="width:100%">
+                                <table id="html5-extension" class="dt-table-hover">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -63,7 +63,7 @@
                                         @foreach ($pekerjaan as $pekerjaan)
                                       <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $pekerjaan->nama_pekerjaan }}</td>
+                                        <td>{{ $pekerjaan->nama_pekerjaan }} <span class="badge badge-warning">{{ $pekerjaan->pokir == 1 ? 'Pokir':'' }}</span></td>
                                         <td>{{ $pekerjaan->desa->n_desa }}</td>
                                         <td>{{ $pekerjaan->kec->n_kec }}</td>
                                         <td>Rp{{ number_format($pekerjaan->pagu, 0, ',', '.') }}</td>

@@ -59,13 +59,34 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12 mb-4">
-                      <label for="nomor">Nomor NPHD</label>
-                      <input type="text" class="ts-control" id="nomor" name="nomor" placeholder="Nomor NPHD"
+                    <div class="col-md-6 mb-4">
+                      <label for="no_nphd">Nomor NPHD</label>
+                      <input type="text" class="ts-control" id="no_nphd" name="no_nphd" placeholder="Nomor NPHD"
                              value="" required>
                       <div class="invalid-feedback">
                       </div>
                     </div>
+                    <div class="col-md-6 mb-4">
+                      <label for="tgl_nphd">Tanggal NPHD</label>
+                      <input type="date" class="ts-control" id="tgl_nphd" name="tgl_nphd" placeholder="Tanggal NPHD"
+                             value="" required>
+                      <div class="invalid-feedback">
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="no_ba">Nomor Berita Acara</label>
+                        <input type="text" class="ts-control" id="no_ba" name="no_ba" placeholder="Nomor Berita Acara Serah Terima Fisik"
+                               value="" required>
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4">
+                        <label for="tgl_ba">Tanggal Berita Acara</label>
+                        <input type="date" class="ts-control" id="tgl_ba" name="tgl_ba" placeholder="Tanggal Berita Acara Serah Terima Fisik"
+                               value="" required>
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6 mb-4">
@@ -85,7 +106,7 @@
                   </div>
                 </div>
                 <button class="btn btn-primary submit-fn mt-2" type="submit">Submit form</button>
-            </form>
+              </form>
             </div>
           </div>
         </div>

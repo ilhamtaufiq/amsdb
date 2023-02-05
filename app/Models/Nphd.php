@@ -13,7 +13,10 @@ class Nphd extends Model
 
     protected $fillable = [
         'pekerjaan_id',
-        'nomor',
+        'no_nphd',
+        'tgl_nphd',
+        'no_ba',
+        'tgl_ba',
         'pengelola',
         'ketua',
         'bangunan',

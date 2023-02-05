@@ -45,7 +45,10 @@ class NphdController extends Controller
     {
         $request->validate([
             'pekerjaan_id' => ['required'],
-            'nomor' => ['required'],
+            'no_nphd' => ['required'],
+            'tgl_nphd' => ['required'],
+            'no_ba' => ['required'],
+            'tgl_ba' => ['required'],
             'pengelola' => ['required'],
             'ketua' => ['required'],
             'bangunan' => ['required'],
@@ -53,7 +56,10 @@ class NphdController extends Controller
 
         Nphd::create([
             'pekerjaan_id' => $request->pekerjaan_id,
-            'nomor' => $request->nomor,
+            'no_nphd' => $request->no_nphd,
+            'tgl_nphd' => $request->tgl_nphd,
+            'no_ba' => $request->no_ba,
+            'tgl_ba' => $request->tgl_ba,
             'pengelola' => $request->pengelola,
             'ketua' => $request->ketua,
             'bangunan' => $request->bangunan,
@@ -128,7 +134,10 @@ class NphdController extends Controller
     {
         $attributes = $request->validate([
             'pekerjaan_id' => ['required'],
-            'nomor' => ['required'],
+            'no_nphd' => ['required'],
+            'tgl_nphd' => ['required'],
+            'no_ba' => ['required'],
+            'tgl_ba' => ['required'],
             'pengelola' => ['required'],
             'ketua' => ['required'],
             'bangunan' => ['required'],
@@ -147,6 +156,8 @@ class NphdController extends Controller
      */
     public function destroy(Nphd $nphd)
     {
-        //
+        $nphd->delete();
+
+        return back()->with('status', 'Data berhasil dihapus');
     }
 }
