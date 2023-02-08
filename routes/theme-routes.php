@@ -8,6 +8,7 @@ use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NphdController;
+use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
@@ -63,6 +64,7 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('kontrak', KontrakController::class);
         Route::resource('pelaksana', PelaksanaController::class);
         Route::resource('nphd', NphdController::class);
+        Route::resource('output', OutputController::class);
 
         Route::get('kecamatan', [WilayahController::class, 'index'])->name('kecamatan');
     });

@@ -72,4 +72,14 @@ class Pekerjaan extends Model
    {
        return $this->hasMany(FileUpload::class, 'pekerjaan_id', 'id');
    }
+
+   /**
+    * Get the output associated with the Pekerjaan
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    */
+   public function realisasi_output()
+   {
+       return $this->hasOne(Output::class, 'pekerjaan_id', 'id');
+   }
 }
