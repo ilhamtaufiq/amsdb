@@ -12,6 +12,7 @@ use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RelokasiController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TinjaController;
 use App\Http\Controllers\UserController;
@@ -67,6 +68,7 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('nphd', NphdController::class);
         Route::resource('output', OutputController::class);
         Route::resource('tinja', TinjaController::class);
+        Route::resource('relokasi', RelokasiController::class);
 
         Route::get('kecamatan', [WilayahController::class, 'index'])->name('kecamatan');
     });

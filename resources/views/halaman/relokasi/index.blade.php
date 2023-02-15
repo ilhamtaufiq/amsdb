@@ -22,6 +22,7 @@
       @vite(['resources/scss/dark/plugins/table/datatable/custom_dt_miscellaneous.scss'])
       @vite(['resources/scss/light/assets/components/font-icons.scss'])
       @vite(['resources/scss/dark/assets/components/font-icons.scss'])
+
       <!--  END CUSTOM STYLE FILE  -->
       </x-slot>
       <!-- END GLOBAL MANDATORY STYLES -->
@@ -31,16 +32,16 @@
         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Data</a></li>
-            <li class="breadcrumb-item active" aria-current="page">NPHD Kegiatan</li>
+            <li class="breadcrumb-item active" aria-current="page">Relokasi Rumah</li>
           </ol>
         </nav>
       </div>
       <!-- /BREADCRUMB -->
       <div class="seperator-header layout-top-spacing">
-        <a type="button" class="btn btn-success" href="{{ route('nphd.create') }}">Tambah</a>
+        <a type="button" class="btn btn-success" href="{{ route('relokasi.create') }}">Tambah</a>
       </div>
       <div class="row">
-        @empty(!$nphd)
+        @empty(!$relokasi)
           <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
             <div class="statbox widget box box-shadow">
               <div class="widget-content widget-content-area">
@@ -48,11 +49,12 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>No NPHD</th>
-                      <th>Pekerjaan</th>
-                      <th>Pengelola</th>
-                      <th>Ketua Pengelola</th>
-                      <th>Bangunan</th>
+                      <th>Nama</th>
+                      <th>NIK</th>
+                      <th>Alamat</th>
+                      <th>Desa</th>
+                      <th>Kecamatan</th>
+                      <th>Keterangan</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -61,54 +63,37 @@
                       $i = 1;
                     @endphp
 
-                    @foreach ($nphd as $nphd)
+                    @foreach ($relokasi as $relokasi)
                       <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $nphd->no_nphd }}</td>
-                        <td>{{ $nphd->pekerjaan->nama_pekerjaan }}</td>
-                        <td>{{ $nphd->pengelola }}</td>
-                        <td>{{ $nphd->ketua }}</td>
-                        <td>{{ $nphd->bangunan }}</td>
+                        <td>{{ $relokasi->nama }}</td>
+                        <td>{{ $relokasi->nik }}</td>
+                        <td>{{ $relokasi->alamat }}</td>
+                        <td>{{ $relokasi->desa }}</td>
+                        <td>{{ $relokasi->kecamatan }}</td>
+                        <td>{{ $relokasi->keterangan }}</td>
                         <td>
                           <div class="btn-group">
-                            <a href="{{ route('nphd.show', $nphd->id) }}" class="action-btn btn-view bs-tooltip me-2"
-                               data-toggle="tooltip" data-placement="top" title="View">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                   stroke-linejoin="round" class="feather feather-printer">
-                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
-                                </path>
-                                <rect x="6" y="14" width="12" height="8"></rect>
-                              </svg>
-                            </a>
-                            <a href="{{ route('nphd.edit', $nphd->id) }}" class="action-btn btn-edit bs-tooltip me-2"
-                               data-toggle="tooltip" data-placement="top" title="Edit">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                   stroke-linejoin="round" class="feather feather-edit-2">
-                                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                              </svg>
-                            </a>
-                            <form action="{{ route('nphd.destroy', $nphd->id) }}" method="post">
-                              @csrf
-                              @method('delete')
-                              <a type="submit" class="action-btn btn-edit bs-tooltip me-2 hapus"
-                                 class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top"
-                                 title="Delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-trash-2">
-                                  <polyline points="3 6 5 6 21 6"></polyline>
-                                  <path
-                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                  </path>
-                                  <line x1="10" y1="11" x2="10" y2="17"></line>
-                                  <line x1="14" y1="11" x2="14" y2="17"></line>
-                                </svg>
-                              </a>
-                            </form>
-
+                            <a href="{{ route('relokasi.show', $relokasi->id) }}" class="action-btn btn-view bs-tooltip me-2"
+                                data-toggle="tooltip" data-placement="top" title="View">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-printer">
+                                 <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                 <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
+                                 </path>
+                                 <rect x="6" y="14" width="12" height="8"></rect>
+                               </svg>
+                             </a>
+                             <a href="{{ route('relokasi.edit', $relokasi->id) }}" class="action-btn btn-edit bs-tooltip me-2"
+                                data-toggle="tooltip" data-placement="top" title="Edit">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-edit-2">
+                                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                               </svg>
+                             </a>
+                             <a class="" href="javascript:void(0)" onclick="hapus({{$relokasi->id}})">Hapus</a>
                           </div>
                         </td>
                       </tr>
@@ -184,33 +169,41 @@
           });
         </script>
         <script>
-          @if (session()->has('status'))
-            Swal.fire({
-              title: 'Info',
-              text: '{{ session('status') }}',
-              icon: 'success',
-              timer: 3000,
-            });
-          @endif
+            function hapus(id) {
+                var id = id;
+                var url = "{{route('relokasi.destroy', '')}}"+"/"+id;
+                Swal.fire({
+                    title: "Apakah Anda Yakin ?",
+                    text: "Data Yang Sudah Dihapus Tidak Bisa Dikembalikan!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Tetap Hapus!"
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "_method":"DELETE"
+                            },
+                            success: function(response) {
+                                swal.fire({
+                                    title: 'Hapus Data',
+                                    text: 'Data Berhasil Dihapus.',
+                                    icon: 'success',
+                                    timer: 2000,
+                                });
+                                location.reload();
+                            }
+                        })
+                    }
+                })
+            }
         </script>
-        <script>
-          $('.hapus').click(function(event) {
-            event.preventDefault();
-            Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                $(this).closest("form").submit();
-              }
-            })
-          });
-        </script>
+
         </x-slot>
         <!--  END CUSTOM SCRIPTS FILE  -->
 </x-base-layout>
