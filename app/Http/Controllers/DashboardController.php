@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use App\Models\Pekerjaan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ class DashboardController extends Controller
         $this->pekerjaan = Pekerjaan::with('kegiatan')->whereHas('kegiatan', function ($q) use ($ta) {
             $q->where('tahun_anggaran', $ta);
         })->get();
+
+        $this->kegiatan = Kegiatan::has('pekerjaan')->where('tahun_anggaran', $ta)->get();
     }
 
     /**
@@ -29,6 +32,7 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', [
             'title' => 'Dashboard',
             'pekerjaan' => $this->pekerjaan,
+            'kegiatan' => $this->kegiatan,
         ]);
     }
 }
