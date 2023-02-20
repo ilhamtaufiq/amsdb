@@ -29,32 +29,36 @@
             sarpras="{{ $pekerjaan->count() }}" />
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Sub Kegiatan</th>
-                    <th class="text-center" scope="col">Pagu</th>
-                    <th class="text-center" scope="col">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($kegiatan as $kegiatan)
-                    <tr>
-                        <td>
-                          {{ $kegiatan->sub_kegiatan }}
-                        </td>
-                        <td class="text-center">Rp{{ number_format($kegiatan->pekerjaan->sum('pagu'),2,',','.') }}</td>
-                        <td class="text-center">
-                          <span class="badge badge-light-success">OK</span>
-                        </td>
-                      </tr>
-                    @endforeach
-                </tbody>
-              </table>
+         <div class="card">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sub Kegiatan</th>
+                            <th class="text-center" scope="col">Pagu</th>
+                            <th class="text-center" scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kegiatan as $kegiatan)
+                            <tr>
+                                <td>
+                                  {{ $kegiatan->sub_kegiatan }}
+                                </td>
+                                <td class="text-center">Rp{{ number_format($kegiatan->pekerjaan->sum('pagu'),2,',','.') }}</td>
+                                <td class="text-center">
+                                  <span class="badge badge-light-success">OK</span>
+                                </td>
+                              </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
             </div>
-          </div>
+         </div>
         </div>
 
       </div>
