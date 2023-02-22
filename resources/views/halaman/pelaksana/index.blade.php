@@ -68,6 +68,7 @@
                                             <td>{{ $pelaksana->npwp }}</td>
                                             <td>{{ $pelaksana->direktur }}</td>
                                             <td>
+                                                @role('Master')
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <form action="{{ route('pelaksana.destroy', $pelaksana->id) }}" method="post">
                                                         @csrf
@@ -95,6 +96,7 @@
                                                     </a>
                                                 </div>
                                             </td>
+                                            @endrole
                                         </tr>
 
                                         @endforeach

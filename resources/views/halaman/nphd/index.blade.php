@@ -70,6 +70,8 @@
                         <td>{{ $nphd->ketua }}</td>
                         <td>{{ $nphd->bangunan }}</td>
                         <td>
+                            @role('Master')
+
                           <div class="btn-group">
                             <a href="{{ route('nphd.show', $nphd->id) }}" class="action-btn btn-view bs-tooltip me-2"
                                data-toggle="tooltip" data-placement="top" title="View">
@@ -110,6 +112,8 @@
                             </form>
 
                           </div>
+                          @endrole
+
                         </td>
                       </tr>
                     @endforeach

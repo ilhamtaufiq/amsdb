@@ -51,7 +51,9 @@
                                             <th>Kegiatan</th>
                                             <th>Sub Kegiatan</th>
                                             <th>Tahun Anggaran</th>
+                                            @role('Master')
                                             <th>Action</th>
+                                            @endrole
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,6 +63,7 @@
                                             <td>{{ $kegiatan->kegiatan }}</td>
                                             <td>{{ $kegiatan->sub_kegiatan }}</td>
                                             <td>{{ $kegiatan->tahun_anggaran }}</td>
+                                            @role('Master')
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <form action="{{ route('kegiatan.destroy', $kegiatan->id) }}" method="post">
@@ -89,6 +92,7 @@
                                                     </a>
                                                 </div>
                                             </td>
+                                            @endrole
                                         </tr>
 
                                         @endforeach

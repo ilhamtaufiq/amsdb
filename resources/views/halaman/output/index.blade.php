@@ -53,6 +53,38 @@
             </div>
           </div>
         </div>
+        <div class="row">
+            <div class="card">
+               <div class="card-body">
+                   <div class="col-md-12">
+                       <div class="table-responsive">
+                         <table class="table table-bordered">
+                           <thead>
+                             <tr>
+                               <th scope="col">Sub Kegiatan</th>
+                               <th class="text-center" scope="col">Output</th>
+                               <th class="text-center" scope="col">Realisasi</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                               @foreach ($kegiatan as $kegiatan)
+                               <tr>
+                                   <td>
+                                     {{ $kegiatan->sub_kegiatan }}
+                                   </td>
+                                   <td class="text-center">{{ $kegiatan->pekerjaan->sum('output') }} Unit</td>
+                                   <td class="text-center">
+                                     <span class="badge badge-light-success">Reserved</span>
+                                   </td>
+                                 </tr>
+                               @endforeach
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
+               </div>
+            </div>
+           </div>
 
       </div>
       <div class="row">
@@ -65,7 +97,7 @@
                     <tr>
                       <th>No</th>
                       <th>Nama Pekerjaan</th>
-                      <th>Target</th>
+                      <th>Output</th>
                       <th>Realisasi</th>
                       <th>Persentase</th>
                       <th>Jiwa</th>
@@ -97,6 +129,7 @@
                         </td>
                         <td>{{ $pekerjaan->realisasi_output->realisasi ?? 0 * 5 }}</td>
                         <td>
+                            @role('Master')
                           @if ($pekerjaan->realisasi_output != null)
                             <div class="btn-group">
                               <a href="javascript:void(0)" id="post" data-id="{{ $pekerjaan->id }}"
@@ -143,6 +176,7 @@
                               </a>
                             </div>
                           @endif
+                          @endrole
                         </td>
                       </tr>
                     @endforeach
