@@ -178,7 +178,7 @@
                             </div>
                         </a>
                     </li>
-
+                    @role('Master')
                     <li class="menu menu-heading">
                         <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>Akun</span></div>
                     </li>
@@ -206,6 +206,7 @@
                             </div>
                         </a>
                     </li>
+                    @endrole
 
                     <!-- <li class="menu {{ Request::is('*/component/*') ? "active" : "" }}">
                         <a href="#components" data-bs-toggle="collapse" aria-expanded="{{ Request::is('*/component/*') ? "true" : "false" }}" class="dropdown-toggle">
@@ -596,7 +597,7 @@
                             </li>
                         </ul>
                     </li> -->
-
+                    @role('Master')
                     <li class="menu menu-heading">
                         <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>MISCELLANEOUS</span></div>
                     </li>
@@ -612,6 +613,7 @@
                             </div>
                         </a>
                     </li>
+                    @endrole
                     <!-- <li class="menu">
                         <a href="#menuLevel1" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">

@@ -9,6 +9,7 @@
     <td>{{ $kontrak->no_sppbj }} - {{ $kontrak->tgl_sppbj }}</td>
     <td>{{ $kontrak->no_spk }} - {{ $kontrak->tgl_spk }}</td>
     <td>{{ $kontrak->no_spmk }} - {{ $kontrak->tgl_spmk }}</td>
+    @role('Master')
     <td>
         <div class="btn-group">
             <a href="{{route('kontrak.edit',$kontrak->id)}}" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
@@ -37,4 +38,5 @@
 
         </div>
     </td>
+    @endrole
 </tr>

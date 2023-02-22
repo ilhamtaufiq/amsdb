@@ -14,6 +14,12 @@ class FileUploadController extends Controller
 
     public function __construct()
     {
+        $this->middleware('permission:role-list|role-create|pekerjroleaan-edit|role-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:role-list', ['only' => ['index']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+
         $this->pekerjaan = Pekerjaan::select('id', 'nama_pekerjaan')->get();
     }
 

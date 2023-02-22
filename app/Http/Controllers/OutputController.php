@@ -2,25 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use App\Models\Output;
 use App\Models\Pekerjaan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OutputController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:role-list|role-create|pekerjroleaan-edit|role-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:role-list', ['only' => ['index']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pekerjaan = Pekerjaan::with('realisasi_output')->get();
+        $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
 
         return view('halaman.output.index', [
             'title' => 'Realisasi Output',
             'output' => Output::has('pekerjaan')->get(),
-            'pekerjaan' => $pekerjaan,
+            'pekerjaan' => Pekerjaan::with('kegiatan', 'realisasi_output')->whereHas('kegiatan', function ($q) use ($ta) {
+                $q->where('tahun_anggaran', $ta);
+            })->latest()->get(),
+            'kegiatan' => Kegiatan::has('pekerjaan')->where('tahun_anggaran', $ta)->get(),
+
         ]);
     }
 
@@ -48,11 +63,11 @@ class OutputController extends Controller
         ]);
 
         Output::updateOrCreate(
-        [
-            'pekerjaan_id' => $request->pekerjaan_id,
-        ],[
-            'realisasi' => $request->realisasi,
-        ]);
+            [
+                'pekerjaan_id' => $request->pekerjaan_id,
+            ], [
+                'realisasi' => $request->realisasi,
+            ]);
 
         return redirect('/app/output/')->with('status', 'Data telah disimpan');
     }

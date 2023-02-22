@@ -5,19 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Kontrak;
 use App\Models\Pekerjaan;
 use App\Models\Pelaksana;
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class KontrakController extends Controller
 {
     public $pekerjaan;
+
     public $pelaksana;
 
     public function __construct()
     {
         $this->pekerjaan = Pekerjaan::doesntHave('kontrak')->select('id', 'nama_pekerjaan')->get();
         $this->pelaksana = Pelaksana::select('id', 'nama')->get();
+        $this->middleware('permission:role-list|role-create|pekerjroleaan-edit|role-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:role-list', ['only' => ['index']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -28,6 +33,7 @@ class KontrakController extends Controller
     public function index(Request $request)
     {
         $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
+
         return view('halaman.kontrak.index', [
             'title' => 'Data Kontrak',
             'kontrak' => Kontrak::with('pekerjaan.kegiatan', 'pelaksana')
@@ -89,7 +95,7 @@ class KontrakController extends Controller
             'no_spk' => $request->no_spk,
             'tgl_spk' => $request->tgl_spk,
             'no_spmk' => $request->no_spmk,
-            'tgl_spmk' => $request->tgl_spmk
+            'tgl_spmk' => $request->tgl_spmk,
         ]);
 
         return redirect(route('kontrak.index'))->with('status', 'Data telah disimpan');
