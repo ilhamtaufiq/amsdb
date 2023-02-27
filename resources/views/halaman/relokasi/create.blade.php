@@ -86,7 +86,6 @@
         <!--  BEGIN CUSTOM SCRIPTS FILE  -->
         <x-slot:footerFiles>
           @vite(['resources/assets/js/forms/bootstrap_validation/bs_validation_script.js'])
-
           <script src="{{ asset('plugins/global/vendors.min.js') }}"></script>
           @vite(['resources/assets/js/custom.js'])
           <script src="{{ asset('plugins/tomSelect/tom-select.base.js') }}"></script>
