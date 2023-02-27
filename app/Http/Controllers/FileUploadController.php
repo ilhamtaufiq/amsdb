@@ -107,7 +107,7 @@ class FileUploadController extends Controller
             ]);
         }
 
-        // return $folder;
+        return $folder;
     }
 
     public function tmpDelete()
