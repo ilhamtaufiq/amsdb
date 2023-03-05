@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TandaTerima extends Model
+class SuratTugas extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_tandaterima';
+    protected $table = 'tbl_tugas';
 
-    protected $fillable = ['berkas', 'penerima', 'tanggal', 'dari'];
+    protected $guarded = [];
 
     protected $casts = [
-        'berkas' => 'array',
+        'kepada' => 'array',
+        'tujuan' => 'array',
     ];
 }

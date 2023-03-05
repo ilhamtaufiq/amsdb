@@ -11,7 +11,7 @@ class Pekerjaan extends Model
 
     protected $table = 'tbl_pekerjaan';
 
-    protected $fillable = ['keg_id', 'kec_id', 'desa_id', 'nama_pekerjaan', 'pagu', 'pokir'];
+    protected $fillable = ['keg_id', 'kec_id', 'desa_id', 'nama_pekerjaan', 'pagu', 'pokir', 'output', 'satuan_output'];
 
     /**
      * Get the Kegiatan that owns the Pekerjaan
