@@ -14,6 +14,7 @@ use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RelokasiController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\TandaTerimaController;
 use App\Http\Controllers\TinjaController;
 use App\Http\Controllers\UserController;
@@ -36,8 +37,6 @@ route::delete('/tmp-delete', [FileUploadController::class, 'tmpDelete'])->name('
 
 route::post('/permission', [RoleController::class, 'storePermission'])->name('permission.store');
 route::get('/permission', [RoleController::class, 'createPermission'])->name('permission.index');
-
-
 
 Route::post('logout', LogoutController::class)
     ->middleware('auth')
@@ -62,6 +61,9 @@ foreach ($prefixRouters as $prefixRouter) {
 
     Route::prefix($prefixRouter)->middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+        Route::get('/sign', [TandaTerimaController::class, 'sign'])->name('sign');
+        Route::post('/signing', [TandaTerimaController::class, 'signing'])->name('signing');
+
         Route::get('kegiatan/data', [KegiatanController::class, 'data']);
         Route::resource('kegiatan', KegiatanController::class);
         Route::resource('pekerjaan', PekerjaanController::class);
@@ -74,7 +76,8 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('output', OutputController::class);
         Route::resource('tinja', TinjaController::class);
         Route::resource('relokasi', RelokasiController::class);
-        Route::resource('tandaterima', TandaTerimaController::class);
+        Route::resource('surat/tandaterima', TandaTerimaController::class);
+        Route::resource('surat/tugas', SuratTugasController::class);
 
         Route::get('kecamatan', [WilayahController::class, 'index'])->name('kecamatan');
     });

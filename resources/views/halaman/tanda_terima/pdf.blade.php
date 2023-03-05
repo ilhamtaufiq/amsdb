@@ -17,7 +17,7 @@
 </style>
 <img src="{{ public_path('/storage/files/kop.png') }}" style="width:100%;">
 <div class="row">
-  <div style="text-align:right; width:95%" class="col">
+  <div style="text-align:right; width:95%">
     Cianjur, {{ \Carbon\Carbon::parse($data->tanggal)->isoFormat('D MMMM Y') }}
   </div>
 </div>
