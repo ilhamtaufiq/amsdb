@@ -152,14 +152,14 @@
             });
         </script>
          <script type="text/javascript">
-            var i = 0;
+            var j = 0;
             $("#dynamic-ar1").click(function () {
-                ++i;
+                ++j;
                 $("#dynamicAddRemove1").append(`
             <div class="row" id="field1">
                 <div class="col-lg-10">
                                 <div class="mb-3">
-                                    <input type="text" id="tujuan" name="tujuan[${i}][untuk]"
+                                    <input type="text" id="tujuan" name="tujuan[${j}][untuk]"
                                         class="form-control" placeholder="Keperluan">
                                 </div>
                             </div>

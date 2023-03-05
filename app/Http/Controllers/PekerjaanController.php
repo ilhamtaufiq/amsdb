@@ -73,6 +73,8 @@ class PekerjaanController extends Controller
             'nama_pekerjaan' => ['required'],
             'pagu' => ['required'],
             'pokir' => ['required'],
+            'output' => ['required'],
+            'satuan_output' => ['required'],
 
         ]);
 
@@ -83,6 +85,8 @@ class PekerjaanController extends Controller
             'nama_pekerjaan' => $request->nama_pekerjaan,
             'pagu' => $request->pagu,
             'pokir' => $request->pokir,
+            'output' => $request->output,
+            'satuan_output' => $request->satuan_output,
 
         ]);
 
@@ -139,6 +143,8 @@ class PekerjaanController extends Controller
             'nama_pekerjaan' => ['required'],
             'pagu' => ['required'],
             'pokir' => ['required'],
+            'output' => ['required'],
+            'satuan_output' => ['required'],
 
         ]);
 

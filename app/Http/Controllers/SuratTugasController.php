@@ -42,6 +42,7 @@ class SuratTugasController extends Controller
         $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('surat_tugas.docx'));
 
         $data = SuratTugas::where('id', $request->id)->get();
+
         // code...
         // $d = [
         //     'Group 1' => [
@@ -66,19 +67,23 @@ class SuratTugasController extends Controller
         //     ],
         // ];
 
-        $d = [];
+        $d = []; // memerintahkan kepada
+        $e = []; // tujuan surat
+        $f = null;
 
         foreach ($data as $key => $value) {
             // code...
             $d = $value->kepada;
+            $e = $value->tujuan;
+            $f = $value->dasar;
         }
+        $template->setValue('dasar', $f);
 
-        // Block cloning
-        // Block cloning
-        $replacements = [];
+        // Block cloning: Memerintahkan Kepada
+        $kepada = [];
         $i = 1;
         foreach ($d as $group_name => $group) {
-            $replacements[] = [
+            $kepada[] = [
                 'nama' => '${nama_'.$i.'}',
                 'nip' => '${nip_'.$i.'}',
                 'jabatan' => '${jabatan_'.$i.'}',
@@ -87,17 +92,16 @@ class SuratTugasController extends Controller
 
             $i++;
         }
-        $template->cloneBlock('block_group', count($replacements), true, false, $replacements);
+        $template->cloneBlock('block_group', count($kepada), true, false, $kepada);
 
-        // Table row cloning
-
+        // Table row cloning: Memerintahkan kepada
         $i = 1;
-        foreach ($d as $group) {
+        foreach ($d as $kepada) {
             $values = [];
             $values[] = [
-                "nama_{$i}" => $group['nama'],
-                "nip_{$i}" => $group['nip'],
-                "jabatan_{$i}" => $group['jabatan'],
+                "nama_{$i}" => $kepada['nama'],
+                "nip_{$i}" => $kepada['nip'],
+                "jabatan_{$i}" => $kepada['jabatan'],
 
             ];
             $template->cloneRowAndSetValues("nama_{$i}", $values);
@@ -105,9 +109,26 @@ class SuratTugasController extends Controller
             $template->cloneRowAndSetValues("jabatan_{$i}", $values);
 
             $i++;
-
-            $template->cloneBlock('block_group', 0);
         }
+
+        // Block cloning: Tujuan Surat
+        $untuk = [];
+        $j = 1;
+        foreach ($e as $gn => $g) {
+            $untuk[] = [
+                'untuk' => '${untuk#'.$j.'}',
+            ];
+
+            $j++;
+        }
+        $template->cloneBlock('bg', count($untuk), true, false, $untuk);
+
+        // Table row cloning: Tujuan Surat Tugas/Keperluan
+        $j = 1;
+        foreach ($e as $u) {
+            $template->setValue('untuk#'.$j++, $u['untuk']);
+        }
+
         $filename = 'Surat Tugas.docx';
 
         header('Content-Type: application/octet-stream');

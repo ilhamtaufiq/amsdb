@@ -16,6 +16,5 @@ class SuratTugas extends Model
     protected $casts = [
         'kepada' => 'array',
         'tujuan' => 'array',
-
     ];
 }
