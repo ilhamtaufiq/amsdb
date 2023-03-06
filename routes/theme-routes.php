@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NphdController;
 use App\Http\Controllers\OutputController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
@@ -37,6 +38,8 @@ route::delete('/tmp-delete', [FileUploadController::class, 'tmpDelete'])->name('
 
 route::post('/permission', [RoleController::class, 'storePermission'])->name('permission.store');
 route::get('/permission', [RoleController::class, 'createPermission'])->name('permission.index');
+
+Route::resource('pegawai', PegawaiController::class);
 
 Route::post('logout', LogoutController::class)
     ->middleware('auth')

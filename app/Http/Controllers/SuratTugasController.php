@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use App\Models\SuratTugas;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -15,77 +16,53 @@ class SuratTugasController extends Controller
      */
     public function index(Request $request)
     {
-        // $data = SuratTugas::where('id', $request->id)->first();
-
-        // $pdf = PDF::loadView('halaman.surat_tugas.print', ['data' => $data]);
-        // $pdf->setPaper('A4', 'portrait');
-        // $pdf->set_option('isRemoteEnabled', true);
-
-        // // return $data;
-        // return $pdf->stream();
-
-        // $news7 = $this->phpword_model->get_employes();
-        // $templateProcessor->cloneRow('id', count($news7));
-
-        // $i=1;
-        // foreach($news7 as $key=>$values) {
-        //     $templateProcessor->setValue('id#'.$i++, $values['id']);
-        // }
-
-        //             $i2=1;
-        // foreach($news7 as $key=>$values) {
-        //     $templateProcessor->setValue('name#'.$i2++, $values['name']);
-        // }
-
-        //     $templateProcessor->saveAs($filename);
-
         $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('surat_tugas.docx'));
 
         $data = SuratTugas::where('id', $request->id)->get();
 
-        // code...
-        // $d = [
-        //     'Group 1' => [
-        //         [
-        //             'nama' => 'John Smith',
-        //             'nip' => '123 Main Rd.',
-        //         ],
-        //         [
-        //             'nama' => 'Jane Doe',
-        //             'nip' => '456 Second St.',
-        //         ],
-        //     ],
-        //     'Group 2' => [
-        //         [
-        //             'nama' => 'Noah Ford',
-        //             'nip' => '987 Rich Blvd.',
-        //         ],
-        //         [
-        //             'nama' => 'Oliver Brown',
-        //             'nip' => '654 Third St.',
-        //         ],
-        //     ],
-        // ];
-
         $d = []; // memerintahkan kepada
         $e = []; // tujuan surat
         $f = null;
+        $ttd = null;
+        $tgl = null;
+
 
         foreach ($data as $key => $value) {
             // code...
             $d = $value->kepada;
             $e = $value->tujuan;
             $f = $value->dasar;
+            $ttd = $value->ttd;
+            $tgl = $value->tgl;
         }
         $template->setValue('dasar', $f);
+        $template->setValue('tgl', strtoupper(\Carbon\Carbon::parse($tgl)->isoFormat('D MMMM Y')));
+
+        if ($ttd == "kabid") {
+            # code...
+            $template->setValue('ttd', "Kepala Bidang Air Minum dan Sanitasi");
+            $template->setValue('ttd_nama', "ASEP HENDRIANA, ST, M.Si");
+            $template->setValue('ttd_nip', "19810127 200604 1 015");
+
+        } else {
+            # code...
+            $template->setValue('ttd', "KEPALA DINAS");
+            $template->setValue('ttd_nama', "CEPI RAHMAT FADIANA, ST, MT ");
+            $template->setValue('ttd_nip', "19700218 1998031 006");
+
+
+        }
+
 
         // Block cloning: Memerintahkan Kepada
         $kepada = [];
         $i = 1;
         foreach ($d as $group_name => $group) {
             $kepada[] = [
+                'no' => '${no_'.$i.'}',
                 'nama' => '${nama_'.$i.'}',
                 'nip' => '${nip_'.$i.'}',
+                'pangkat' => '${pangkat_'.$i.'}',
                 'jabatan' => '${jabatan_'.$i.'}',
 
             ];
@@ -99,14 +76,19 @@ class SuratTugasController extends Controller
         foreach ($d as $kepada) {
             $values = [];
             $values[] = [
+                "no_{$i}" => "{$i}",
                 "nama_{$i}" => $kepada['nama'],
                 "nip_{$i}" => $kepada['nip'],
+                "pangkat_{$i}" => $kepada['pangkat'],
                 "jabatan_{$i}" => $kepada['jabatan'],
 
             ];
             $template->cloneRowAndSetValues("nama_{$i}", $values);
             $template->cloneRowAndSetValues("nip_{$i}", $values);
+            $template->cloneRowAndSetValues("pangkat_{$i}", $values);
             $template->cloneRowAndSetValues("jabatan_{$i}", $values);
+            // $template->cloneRowAndSetValues("no_{$i}", $values);
+
 
             $i++;
         }
@@ -143,8 +125,11 @@ class SuratTugasController extends Controller
      */
     public function create()
     {
+        $pegawai = Pegawai::get();
+
         return view('halaman.surat_tugas.create', [
             'title' => 'Buat Surat Tugas',
+            'pegawai' => $pegawai,
         ]);
     }
 
