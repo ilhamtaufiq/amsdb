@@ -66,6 +66,8 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
         Route::get('/sign', [TandaTerimaController::class, 'sign'])->name('sign');
         Route::post('/signing', [TandaTerimaController::class, 'signing'])->name('signing');
+        Route::get('/surat/tugas/print', [SuratTugasController::class, 'print'])->name('tugas.print');
+
 
         Route::get('kegiatan/data', [KegiatanController::class, 'data']);
         Route::resource('kegiatan', KegiatanController::class);

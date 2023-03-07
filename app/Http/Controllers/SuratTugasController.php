@@ -9,12 +9,19 @@ use Illuminate\Http\Request;
 
 class SuratTugasController extends Controller
 {
+    public function index()
+    {
+        return view('halaman.surat_tugas.index',[
+            'title' => "Daftar Surat Tugas",
+            'data' => SuratTugas::get(),
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function print(Request $request)
     {
         $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('surat_tugas.docx'));
 
@@ -25,6 +32,7 @@ class SuratTugasController extends Controller
         $f = null;
         $ttd = null;
         $tgl = null;
+        $nomor = null;
 
 
         foreach ($data as $key => $value) {
@@ -34,8 +42,11 @@ class SuratTugasController extends Controller
             $f = $value->dasar;
             $ttd = $value->ttd;
             $tgl = $value->tgl;
+            $nomor = $value->nomor;
+
         }
         $template->setValue('dasar', $f);
+        $template->setValue('nomor', $nomor);
         $template->setValue('tgl', strtoupper(\Carbon\Carbon::parse($tgl)->isoFormat('D MMMM Y')));
 
         if ($ttd == "kabid") {
@@ -194,8 +205,11 @@ class SuratTugasController extends Controller
      * @param  \App\Models\SuratTugas  $suratTugas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SuratTugas $suratTugas)
+    public function destroy(SuratTugas $tuga)
     {
-        //
+        $tuga->delete();
+
+        return back()->with('status', 'Data berhasil dihapus');
+
     }
 }
