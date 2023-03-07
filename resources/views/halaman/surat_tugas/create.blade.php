@@ -38,6 +38,14 @@
                 <div class="form-group">
                   <input type="hidden" id="id" name="id" value="">
                   <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label>Nomor Surat</label>
+                            <input type="text" class="form-control" name="nomor">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-lg-12">
                       <div class="mb-3">
                         <label>Dasar Surat</label>
