@@ -124,7 +124,18 @@
                   </div>
 
                 </div>
-
+                <div class="row">
+                    <div class="mb-3">
+                        <label>Pilih Tanda Tangan</label>
+                        <div class="col-lg-6">
+                            <select class="form-control" name="ttd">
+                                <option>Pilih</option>
+                                <option class="kabid">Kepala Bidang</option>
+                                <option class="kadis">Kepala Dinas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div>
                   <input class="btn btn-danger" type="submit">
                 </div>

@@ -110,8 +110,8 @@ class SuratTugasController extends Controller
         foreach ($e as $u) {
             $template->setValue('untuk#'.$j++, $u['untuk']);
         }
-
-        $filename = 'Surat Tugas.docx';
+        $tgl = \Carbon\Carbon::parse($tgl)->isoFormat('D MMMM Y');
+        $filename = 'Surat Tugas - '.$tgl.'.docx';
 
         header('Content-Type: application/octet-stream');
         header("Content-Disposition: attachment; filename=$filename");
