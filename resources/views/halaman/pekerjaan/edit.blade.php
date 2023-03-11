@@ -111,7 +111,7 @@
                       <label for="pagu">Satuan</label>
                       <select name="satuan_output" id="select-output" placeholder="Pilih Satuan Output..." autocomplete="off" required>
                         <option value="">Pilih Satuan Output...</option>
-                        <option value="Unit" {{ $pekerjaan->satuan_output == 'TS' ? 'selected' : '' }}>Unit
+                        <option value="Unit" {{ $pekerjaan->satuan_output == 'Unit' ? 'selected' : '' }}>Unit
                         </option>
                         <option value="SR" {{ $pekerjaan->satuan_output == 'SR' ? 'selected' : '' }}>Sambungan Rumah
                         </option>
@@ -122,7 +122,75 @@
                       </div>
                     </div>
                   </div>
+                  <label>Spesifikasi Teknis <button type="button" name="add" id="dynamic-ar" class="btn btn-sm btn-outline-primary">Tambah</button></label>
+                  @php
+                    $nol = 0;
+                      if ($pekerjaan->spek != null) {
+                        # code...
+                        $index = array_key_last($pekerjaan->spek->spek);;
+                      } else {
+                        # code...
+                        $index = $nol;
+                      }
+
+                  @endphp
+                  <input class="form-control" type="hidden" id="index" value="{{ $index }}">
+                  @empty(!$pekerjaan->spek)
+                  @foreach ($pekerjaan->spek->spek as $index => $item)
+                  <div class="row" id="">
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <input type="text" id="volume" name="spek[{{ $index }}][volume]" class="form-control"
+                               placeholder="Volume" value="{{ $item['volume'] ?? '' }}">
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <select class="form-control" id="satuan" name="spek[{{ $index }}][satuan]">
+                            <option value="Unit" {{ $item['satuan'] == 'Unit' ? 'selected':'' }}>Unit</option>
+                            <option value="Sambungan Rumah" {{ $item['satuan'] == 'Sambungan Rumah' ? 'selected':'' }}>Sambungan Rumah</option>
+                            <option value="Meter" {{ $item['satuan'] == 'Meter' ? 'selected':'' }}>Meter</option>
+                            <option value="Tangki Septik" {{ $item['satuan'] == 'Tangki Septik' ? 'selected':'' }}>Tangki Septik</option>
+                            <option value="IPAL" {{ $item['satuan'] == 'IPAL' ? 'selected':'' }}>IPAL</option>
+                        </select>
+                        {{-- <input type="text" id="satuan" name="spek[{{ $index }}][satuan]" class="form-control"
+                               placeholder="Satuan" value="{{ $item['satuan'] ?? '' }}"> --}}
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+                  @else
+                  <div class="row" id="">
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <input type="text" id="volume" name="spek[0][volume]" class="form-control"
+                               placeholder="Volume">
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <select class="form-control" id="satuan" name="spek[0][satuan]">
+                            <option value="Unit">Unit</option>
+                            <option value="Sambungan Rumah">Sambungan Rumah</option>
+                            <option value="Meter">Meter</option>
+                            <option value="Tangki Septik">Tangki Septik</option>
+                            <option value="IPAL">IPAL</option>
+                        </select>
+                        {{-- <input type="text" id="satuan" name="spek[0][satuan]" class="form-control"
+                               placeholder="Satuan"> --}}
+                      </div>
+                    </div>
+                  </div>
+                  @endif
                 </div>
+                <div id="dynamicAddRemove">
+
+                </div>
+
                 <button class="btn btn-primary submit-fn mt-2" type="submit">Submit form</button>
               </form>
             </div>
@@ -137,6 +205,39 @@
         <script src="{{ asset('plugins/global/vendors.min.js') }}"></script>
         @vite(['resources/assets/js/custom.js'])
         <script src="{{ asset('plugins/tomSelect/tom-select.base.js') }}"></script>
+        <script>
+            var i = document.querySelector('#index').value;
+            $("#dynamic-ar").click(function() {
+            ++i;
+            $("#dynamicAddRemove").append(`
+            <div class="row" id="field">
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <input type="text" id="volume" name="spek[${i}][volume]" class="form-control"
+                               placeholder="Volume">
+                        <div class="invalid-feedback">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <input type="text" id="satuan" name="spek[${i}][satuan]" class="form-control"
+                               placeholder="Satuan">
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-danger remove-input-field">x</button>
+                                </div>
+                    </div>
+                  </div>
+            `);
+          });
+          $(document).on('click', '.remove-input-field', function() {
+            $(this).parents('#field').remove();
+          });
+
+        </script>
         <script>
           new TomSelect("#select-output", {
             create: false,

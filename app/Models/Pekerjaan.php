@@ -80,6 +80,16 @@ class Pekerjaan extends Model
     */
    public function realisasi_output()
    {
-       return $this->hasOne(Output::class, 'pekerjaan_id', 'id');
+       return $this->hasMany(Output::class, 'pekerjaan_id', 'id');
+   }
+
+   /**
+    * Get the spek associated with the Pekerjaan
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    */
+   public function spek()
+   {
+       return $this->hasOne(Spek::class, 'pekerjaan_id', 'id');
    }
 }

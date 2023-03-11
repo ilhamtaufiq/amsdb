@@ -6,6 +6,7 @@ use App\Models\Desa;
 use App\Models\Kec;
 use App\Models\Kegiatan;
 use App\Models\Pekerjaan;
+use App\Models\Spek;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ class PekerjaanController extends Controller
         $this->kegiatan = Kegiatan::select('id', 'sub_kegiatan')->where('tahun_anggaran', $ta)->get();
         $this->kec = Kec::select('id', 'n_kec')->get();
         $this->desa = Desa::select('id', 'n_desa')->get();
+
     }
 
     /**
@@ -147,9 +149,23 @@ class PekerjaanController extends Controller
             'satuan_output' => ['required'],
 
         ]);
-
         $pekerjaan->update($attributes);
+        $pekerjaan_id = $request->pekerjaan_id;
+        $spesifikasi = $request->spek;
 
+        $data = [];
+        foreach($spesifikasi as $s) {
+            Spek::updateOrCreate(
+                [
+                    'pekerjaan_id' => $pekerjaan->id,
+                ],
+                [
+                    'spek' => $spesifikasi
+                ]
+            );
+
+        }
+        // return $spek;
         return redirect('/app/pekerjaan/')->with('status', 'Data telah diubah');
     }
 

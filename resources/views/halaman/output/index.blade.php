@@ -26,7 +26,6 @@
       <link rel="stylesheet" href="{{ asset('plugins/animate/animate.css') }}">
       @vite(['resources/scss/light/assets/elements/infobox.scss', 'resources/scss/dark/assets/elements/infobox.scss'])
 
-
       <!--  END CUSTOM STYLE FILE  -->
       </x-slot>
       <!-- END GLOBAL MANDATORY STYLES -->
@@ -44,47 +43,50 @@
       <div class="seperator-header layout-top-spacing">
 
         <div class="info-box-2">
-          <div class="info-box-2-bg" style="background-image: url({{Vite::asset('resources/images/undraw_1.svg')}});"></div>
+          <div class="info-box-2-bg" style="background-image: url({{ Vite::asset('resources/images/undraw_1.svg') }});">
+          </div>
           <div class="info-box-2-bg-blur"></div>
           <div class="info-box-2-content-wrapper">
             <h3 class="info-box-2-title">Total Jiwa</h3>
             <div class="info-box-2-content">
-                <h3 class="info-box-2-title">{{ $output->sum('realisasi') * 5 }}</h3>
+              <h3 class="info-box-2-title">
+
+              </h3>
             </div>
           </div>
         </div>
         <div class="row">
-            <div class="card">
-               <div class="card-body">
-                   <div class="col-md-12">
-                       <div class="table-responsive">
-                         <table class="table table-bordered">
-                           <thead>
-                             <tr>
-                               <th scope="col">Sub Kegiatan</th>
-                               <th class="text-center" scope="col">Output</th>
-                               <th class="text-center" scope="col">Realisasi</th>
-                             </tr>
-                           </thead>
-                           <tbody>
-                               @foreach ($kegiatan as $kegiatan)
-                               <tr>
-                                   <td>
-                                     {{ $kegiatan->sub_kegiatan }}
-                                   </td>
-                                   <td class="text-center">{{ $kegiatan->pekerjaan->sum('output') }} Unit</td>
-                                   <td class="text-center">
-                                     <span class="badge badge-light-success">Reserved</span>
-                                   </td>
-                                 </tr>
-                               @endforeach
-                           </tbody>
-                         </table>
-                       </div>
-                     </div>
-               </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table-bordered table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sub Kegiatan</th>
+                        <th class="text-center" scope="col">Output</th>
+                        <th class="text-center" scope="col">Realisasi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($kegiatan as $kegiatan)
+                        <tr>
+                          <td>
+                            {{ $kegiatan->sub_kegiatan }}
+                          </td>
+                          <td class="text-center">{{ $kegiatan->pekerjaan->sum('output') }} Unit</td>
+                          <td class="text-center">
+                            <span class="badge badge-light-success">Reserved</span>
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-           </div>
+          </div>
+        </div>
 
       </div>
       <div class="row">
@@ -98,8 +100,10 @@
                       <th>No</th>
                       <th>Nama Pekerjaan</th>
                       <th>Output</th>
-                      <th>Realisasi</th>
-                      <th>Persentase</th>
+                      <th>Realisasi Fisik</th>
+                      <th>% Fisik</th>
+                      <th>Realisasi Keuangan</th>
+                      <th>% Keuangan</th>
                       <th>Jiwa</th>
                       <th>Action</th>
                     </tr>
@@ -108,15 +112,17 @@
                     @php
                       $i = 1;
                     @endphp
-                    @foreach ($pekerjaan as $pekerjaan)
+                    @foreach ($pekerjaan as $index => $pekerjaan)
                       <tr>
                         <td>{{ $i++ }}</td>
                         <td>{{ $pekerjaan->nama_pekerjaan }}</td>
                         <td>{{ $pekerjaan->output }} {{ $pekerjaan->satuan_output }}</td>
-                        <td>{{ $pekerjaan->realisasi_output->realisasi ?? 0 }} {{ $pekerjaan->satuan_output }}</td>
+                        <td>
+                          {{ $pekerjaan->realisasi_output->sum('fisik') }}
+                        </td>
                         <td>
                           @php
-                            $realisasi = $pekerjaan->realisasi_output->realisasi ?? 0;
+                            $realisasi = $pekerjaan->realisasi_output->sum('fisik') ?? 0;
                             if ($realisasi != 0) {
                                 # code...
                                 $persentase = ($realisasi / $pekerjaan->output) * 1;
@@ -125,24 +131,44 @@
                                 $persentase = 0;
                             }
                             echo number_format($persentase * 100, 2, ',', '') . '%';
+
                           @endphp
                         </td>
-                        <td>{{ $pekerjaan->realisasi_output->realisasi ?? 0 * 5 }}</td>
                         <td>
-                            @role('Master')
-                          @if ($pekerjaan->realisasi_output != null)
-                            <div class="btn-group">
-                              <a href="javascript:void(0)" id="post" data-id="{{ $pekerjaan->id }}"
-                                 class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top"
-                                 title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-edit">
-                                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                              </a>
-                              <form action="{{ route('output.destroy', $pekerjaan->realisasi_output) }}" method="post">
+                          {{ $pekerjaan->realisasi_output->sum('keuangan') }}
+                        </td>
+                        <td>
+                          @php
+                            $realisasi = $pekerjaan->realisasi_output->sum('keuangan') ?? 0;
+                            if ($realisasi != 0) {
+                                # code...
+                                $persentase = ($realisasi / $pekerjaan->pagu) * 1;
+                            } else {
+                                # code...
+                                $persentase = 0;
+                            }
+                            echo number_format($persentase * 100, 2, ',', '') . '%';
+
+                          @endphp
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                          @role('Master')
+                            @if ($pekerjaan->realisasi_output != null)
+                              <div class="btn-group">
+                                <a href="javascript:void(0)" id="post" data-id="{{ $pekerjaan->id }}"
+                                   class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top"
+                                   title="Edit">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                       fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                       stroke-linejoin="round" class="feather feather-edit">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                  </svg>
+                                </a>
+                                {{-- <form action="{{ route('output.destroy', $pekerjaan->realisasi_output) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <a type="submit" class="action-btn btn-edit bs-tooltip me-2 hapus"
@@ -159,23 +185,23 @@
                                     <line x1="14" y1="11" x2="14" y2="17"></line>
                                   </svg>
                                 </a>
-                              </form>
+                              </form> --}}
 
-                            </div>
-                          @else
-                            <div class="btn-group">
-                              <a href="javascript:void(0)" id="post" data-id="{{ $pekerjaan->id }}"
-                                 class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top"
-                                 title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-edit">
-                                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          @endif
+                              </div>
+                            @else
+                              <div class="btn-group">
+                                <a href="javascript:void(0)" id="post" data-id="{{ $pekerjaan->id }}"
+                                   class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top"
+                                   title="Edit">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                       fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                       stroke-linejoin="round" class="feather feather-edit">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            @endif
                           @endrole
                         </td>
                       </tr>
@@ -207,19 +233,46 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form id="formRealisasi" name="formRealisasi" class="form-horizontal" novalidate="">
-                  <div class="form-group">
-                    <label>Realisasi Output</label>
-                    <input type="number" class="form-control" id="realisasi" name="realisasi"
-                           placeholder="Volume Output" value="">
-                  </div>
+                <form action="{{ route('output.store') }}" method="post" class="form-horizontal" novalidate="">
+                  @csrf
+                  <table>
+                    <thead>
+                      <th>Triwulan</th>
+                      <th>Fisik</th>
+                      <th>Keuangan</th>
+                    </thead>
+                    <tbody>
+                      <td>
+                        <input type="number" class="form-control" id="triwulan" name="triwulan"
+                               placeholder="Triwulan" value="">
+                      </td>
+                      <td>
+                        <input type="number" class="form-control" id="fisik" name="fisik"
+                               placeholder="Fisik" value="">
+                      </td>
+                      <td>
+                        <input type="number" class="form-control" id="keuangan" name="keuangan"
+                               placeholder="Keuangan" value="">
+                      </td>
+                    </tbody>
+                  </table>
                   <input type="hidden" id="pekerjaan_id" name="pekerjaan_id" value="">
-                </form>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-light-dark" data-bs-dismiss="modal">Discard</button>
                 <button type="submit" id="btn-save" class="btn btn-primary" value="add">Save</button>
               </div>
+              </form>
+              <!-- Table -->
+              <table id='empTable' class="dt-table-hover">
+                <thead>
+                  <tr>
+                    <th style="text-align:center;">Triwulan</th>
+                    <th style="text-align:center;">Fisik</th>
+                    <th style="text-align:center;">Keuangan</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -242,70 +295,113 @@
             var pekerjaan_id = $(this).data('id');
             $('#pekerjaan_id').val(pekerjaan_id);
             $('#modalPost').modal('show');
+
+            $.ajax({
+              url: "{{ route('output.api') }}",
+              type: "GET",
+              data: {
+                pekerjaan_id: pekerjaan_id,
+              },
+              dataType: 'json',
+              success: function(response) {
+                console.log(response);
+                createRows(response);
+              }
+            });
           });
+
+          function createRows(response) {
+            var len = 0;
+            $('#empTable tbody').empty(); // Empty <tbody>
+            if (response != null) {
+              len = response.length;
+            }
+
+            if (len > 0) {
+              for (var i = 0; i < len; i++) {
+                var triwulan = response[i].triwulan;
+                var fisik = response[i].fisik;
+                var keuangan = response[i].keuangan;
+
+                var tr_str = "<tr>" +
+                  "<td align='center'>" + triwulan + "</td>" +
+                  "<td align='center'>" + fisik + " Unit</td>" +
+                  "<td align='center'>" + keuangan + "</td>" +
+                  "</tr>";
+
+                $("#empTable tbody").append(tr_str);
+              }
+            } else {
+              var tr_str = "<tr>" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+
+              $("#empTable tbody").append(tr_str);
+            }
+          }
 
           //action create post
-          $('#btn-save').click(function(e) {
-            e.preventDefault();
-            //define variable
-            let pekerjaan_id = $('#pekerjaan_id').val();
-            let realisasi = $('#realisasi').val();
-            let token = $("meta[name='csrf-token']").attr("content");
+          //   $('#btn-save').click(function(e) {
+          //     e.preventDefault();
+          //     //define variable
+          //     let pekerjaan_id = $('#pekerjaan_id').val();
+          //     let realisasi = $('#realisasi').val();
+          //     let token = $("meta[name='csrf-token']").attr("content");
 
-            //ajax
-            $.ajax({
-              url: `{{ route('output.store') }}`,
-              type: "POST",
-              cache: false,
-              data: {
-                "pekerjaan_id": pekerjaan_id,
-                "realisasi": realisasi,
-                "_token": token
-              },
-              success: function(response) {
-                //show success message
-                Swal.fire({
-                  icon: 'success',
-                  text: "Berhasil Disimpan",
-                  showConfirmButton: true,
-                  timer: 3000
-                }).then(function() {
-                  window.location.reload();
-                });;
-
-
-                //close modal
-                $('#modal-create').modal('hide');
+          //     //ajax
+          //     $.ajax({
+          //       url: `{{ route('output.store') }}`,
+          //       type: "POST",
+          //       cache: false,
+          //       data: {
+          //         "pekerjaan_id": pekerjaan_id,
+          //         "realisasi": JSON.stringify(realisasi),
+          //         "_token": token
+          //       },
+          //       success: function(response) {
+          //         //show success message
+          //         Swal.fire({
+          //           icon: 'success',
+          //           text: "Berhasil Disimpan",
+          //           showConfirmButton: true,
+          //           timer: 3000
+          //         }).then(function() {
+          //           window.location.reload();
+          //         });;
 
 
-              },
-              error: function(error) {
+          //         //close modal
+          //         $('#modal-create').modal('hide');
 
-                if (error.responseJSON.title[0]) {
 
-                  //show alert
-                  $('#alert-title').removeClass('d-none');
-                  $('#alert-title').addClass('d-block');
+          //       },
+          //       error: function(error) {
 
-                  //add message to alert
-                  $('#alert-title').html(error.responseJSON.title[0]);
-                }
+          //         if (error.responseJSON.title[0]) {
 
-                if (error.responseJSON.content[0]) {
+          //           //show alert
+          //           $('#alert-title').removeClass('d-none');
+          //           $('#alert-title').addClass('d-block');
 
-                  //show alert
-                  $('#alert-content').removeClass('d-none');
-                  $('#alert-content').addClass('d-block');
+          //           //add message to alert
+          //           $('#alert-title').html(error.responseJSON.title[0]);
+          //         }
 
-                  //add message to alert
-                  $('#alert-content').html(error.responseJSON.content[0]);
-                }
+          //         if (error.responseJSON.content[0]) {
 
-              }
+          //           //show alert
+          //           $('#alert-content').removeClass('d-none');
+          //           $('#alert-content').addClass('d-block');
 
-            });
+          //           //add message to alert
+          //           $('#alert-content').html(error.responseJSON.content[0]);
+          //         }
 
-          });
+          //       }
+
+          //     });
+
+          //   });
         </script>
         <script>
           $('#html5-extension').DataTable({

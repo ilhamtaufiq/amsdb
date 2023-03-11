@@ -30,6 +30,7 @@ class LoginController extends Controller
         }
         $request->session()->regenerate();
 
-        return redirect('app/dashboard');
+        // return redirect('app/dashboard');
+        return redirect()->intended('app/dashboard');
     }
 }
