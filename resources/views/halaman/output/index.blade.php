@@ -90,7 +90,6 @@
 
       </div>
       <div class="row">
-        @empty(!$output)
           <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
             <div class="statbox widget box box-shadow">
               <div class="widget-content widget-content-area">
@@ -211,9 +210,6 @@
               </div>
             </div>
           </div>
-        @else
-          <div class="alert alert-info">Tidak ada data</div>
-        @endempty
       </div>
 
       <div class="row layout-top-spacing">
