@@ -5,6 +5,7 @@ use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KontrakController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NphdController;
@@ -67,7 +68,9 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::get('/sign', [TandaTerimaController::class, 'sign'])->name('sign');
         Route::post('/signing', [TandaTerimaController::class, 'signing'])->name('signing');
         Route::get('/surat/tugas/print', [SuratTugasController::class, 'print'])->name('tugas.print');
-
+        Route::get('/laporan/pdf', [LaporanController::class, 'pdf'])->name('laporan.pdf');
+        Route::get('/output/triwulan', [OutputController::class, 'triwulan'])->name('output.triwulan');
+        Route::get('/output/api', [OutputController::class, 'api'])->name('output.api');
 
         Route::get('kegiatan/data', [KegiatanController::class, 'data']);
         Route::resource('kegiatan', KegiatanController::class);
@@ -81,6 +84,7 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::resource('output', OutputController::class);
         Route::resource('tinja', TinjaController::class);
         Route::resource('relokasi', RelokasiController::class);
+        Route::resource('laporan', LaporanController::class);
         Route::resource('surat/tandaterima', TandaTerimaController::class);
         Route::resource('surat/tugas', SuratTugasController::class);
 

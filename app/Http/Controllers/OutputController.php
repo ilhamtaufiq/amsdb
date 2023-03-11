@@ -30,12 +30,30 @@ class OutputController extends Controller
 
         return view('halaman.output.index', [
             'title' => 'Realisasi Output',
-            'output' => Output::has('pekerjaan')->get(),
-            'pekerjaan' => Pekerjaan::with('kegiatan', 'realisasi_output')->whereHas('kegiatan', function ($q) use ($ta) {
+            'output' => Output::has('pekerjaan')->sum('fisik'),
+            'pekerjaan' => Pekerjaan::with('kegiatan', 'realisasi_output')
+            ->whereHas('kegiatan', function ($q) use ($ta) {
                 $q->where('tahun_anggaran', $ta);
             })->latest()->get(),
             'kegiatan' => Kegiatan::has('pekerjaan')->where('tahun_anggaran', $ta)->get(),
 
+        ]);
+    }
+
+    public function api(Request $request)
+    {
+        $data = Output::has('pekerjaan')->where('pekerjaan_id', $request->pekerjaan_id)->get();
+
+        return response()->json($data, 200);
+    }
+
+    public function triwulan(Request $request)
+    {
+        $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
+
+        return view('halaman.output.triwulan', [
+            'title' => 'Realisasi Output',
+            'output' => Output::has('pekerjaan')->where('triwulan', $request->triwulan)->get(),
         ]);
     }
 
@@ -59,15 +77,30 @@ class OutputController extends Controller
     {
         $request->validate([
             'pekerjaan_id' => ['required'],
-            'realisasi' => ['required'],
         ]);
 
+        $realisasi = $request->realisasi;
+
+        $data = [];
         Output::updateOrCreate(
             [
                 'pekerjaan_id' => $request->pekerjaan_id,
-            ], [
-                'realisasi' => $request->realisasi,
-            ]);
+                'triwulan' => $request->triwulan,
+
+            ],
+            [
+                'fisik' => $request->fisik,
+                'keuangan' => $request->keuangan,
+            ]
+        );
+
+        // Output::updateOrCreate(
+        //     [
+        //         'pekerjaan_id' => $request->pekerjaan_id,
+        //         'triwulan' => $request->tw,
+        //     ], [
+        //         'realisasi' => $request->realisasi,
+        //     ]);
 
         return redirect('/app/output/')->with('status', 'Data telah disimpan');
     }

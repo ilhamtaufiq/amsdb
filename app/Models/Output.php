@@ -11,7 +11,7 @@ class Output extends Model
 
     protected $table = 'tbl_output';
 
-    protected $fillable = ['pekerjaan_id', 'realisasi'];
+    protected $fillable = ['pekerjaan_id', 'fisik', 'keuangan', 'triwulan'];
 
     /**
      * Get the pekerjaan associated with the Output
@@ -21,5 +21,22 @@ class Output extends Model
     public function pekerjaan()
     {
         return $this->hasOne(Pekerjaan::class, 'id', 'pekerjaan_id');
+    }
+
+    protected $casts = [
+        'realisasi' => 'array',
+    ];
+
+    public function setRealisasiAttribute($value)
+    {
+        $realisasi = [];
+
+        foreach ($value as $array_item) {
+            if (! is_null($array_item['volume'])) {
+                $realisasi[] = $array_item;
+            }
+        }
+
+        $this->attributes['realisasi'] = json_encode($realisasi);
     }
 }
