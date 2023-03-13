@@ -109,11 +109,13 @@
                     </div>
                     <div class="col-md-4 mb-4">
                       <label for="pagu">Satuan</label>
-                      <select name="satuan_output" id="select-output" placeholder="Pilih Satuan Output..." autocomplete="off" required>
+                      <select name="satuan_output" id="select-output" placeholder="Pilih Satuan Output..."
+                              autocomplete="off" required>
                         <option value="">Pilih Satuan Output...</option>
                         <option value="Unit" {{ $pekerjaan->satuan_output == 'Unit' ? 'selected' : '' }}>Unit
                         </option>
-                        <option value="SR" {{ $pekerjaan->satuan_output == 'SR' ? 'selected' : '' }}>Sambungan Rumah
+                        <option value="SR" {{ $pekerjaan->satuan_output == 'SR' ? 'selected' : '' }}>Sambungan
+                          Rumah
                         </option>
                         <option value="KU/HU" {{ $pekerjaan->satuan_output == 'KU/HU' ? 'selected' : '' }}>Kran
                           Umum/Hidran Umum</option>
@@ -122,100 +124,122 @@
                       </div>
                     </div>
                   </div>
-                  <label>Spesifikasi Teknis <button type="button" name="add" id="dynamic-ar" class="btn btn-sm btn-outline-primary">Tambah</button></label>
+                  <label>Spesifikasi Teknis <button type="button" name="add" id="dynamic-ar"
+                            class="btn btn-sm btn-outline-primary">Tambah</button></label>
                   @php
                     $nol = 0;
-                      if ($pekerjaan->spek != null) {
+                    if ($pekerjaan->spek != null) {
                         # code...
-                        $index = array_key_last($pekerjaan->spek->spek);;
-                      } else {
+                        $index = array_key_last($pekerjaan->spek->spek);
+                    } else {
                         # code...
                         $index = $nol;
-                      }
+                    }
 
                   @endphp
                   <input class="form-control" type="hidden" id="index" value="{{ $index }}">
                   @empty(!$pekerjaan->spek)
-                  @foreach ($pekerjaan->spek->spek as $index => $item)
-                  <div class="row" id="">
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <input type="text" id="volume" name="spek[{{ $index }}][volume]" class="form-control"
-                               placeholder="Volume" value="{{ $item['volume'] ?? '' }}">
-                        <div class="invalid-feedback">
+                    @foreach ($pekerjaan->spek->spek as $index => $item)
+                      <div class="row" id="">
+                        <div class="col-lg-4">
+                          <div class="mb-3">
+                            <input type="number" id="volume" name="spek[{{ $index }}][volume]"
+                                   class="form-control" placeholder="Volume" value="{{ $item['volume'] ?? '' }}">
+                            <div class="invalid-feedback">
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <select class="form-control" id="satuan" name="spek[{{ $index }}][satuan]">
-                            <option value="Unit" {{ $item['satuan'] == 'Unit' ? 'selected':'' }}>Unit</option>
-                            <option value="Sambungan Rumah" {{ $item['satuan'] == 'Sambungan Rumah' ? 'selected':'' }}>Sambungan Rumah</option>
-                            <option value="Meter" {{ $item['satuan'] == 'Meter' ? 'selected':'' }}>Meter</option>
-                            <option value="Tangki Septik" {{ $item['satuan'] == 'Tangki Septik' ? 'selected':'' }}>Tangki Septik</option>
-                            <option value="Tangki Septik Komunal" {{ $item['satuan'] == 'Tangki Septik Komunal' ? 'selected':'' }}>Tangki Septik Komunal</option>
-                            <option value="IPAL" {{ $item['satuan'] == 'IPAL' ? 'selected':'' }}>IPAL</option>
-                        </select>
-                        {{-- <input type="text" id="satuan" name="spek[{{ $index }}][satuan]" class="form-control"
+                        <div class="col-lg-3">
+                          <div class="mb-3">
+                            <select class="form-control" id="satuan{{ $index }}"
+                                    name="spek[{{ $index }}][satuan]">
+                              <option value="Sambungan Rumah"
+                                      {{ $item['satuan'] == 'Sambungan Rumah' ? 'selected' : '' }}>Sambungan Rumah
+                              </option>
+                              <option value="Jaringan Perpipaan" {{ $item['satuan'] == 'Jaringan Perpipaan' ? 'selected' : '' }}>Jaringan Perpipaan</option>
+                              <option value="Tangki Septik" {{ $item['satuan'] == 'Tangki Septik' ? 'selected' : '' }}>
+                                Tangki Septik</option>
+                              <option value="Tangki Septik Komunal"
+                                      {{ $item['satuan'] == 'Tangki Septik Komunal' ? 'selected' : '' }}>Tangki Septik
+                                Komunal</option>
+                              <option value="IPAL" {{ $item['satuan'] == 'IPAL' ? 'selected' : '' }}>IPAL</option>
+                            </select>
+                            {{-- <input type="text" id="satuan" name="spek[{{ $index }}][satuan]" class="form-control"
                                placeholder="Satuan" value="{{ $item['satuan'] ?? '' }}"> --}}
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control" id="unit{{ $index }}" name="spek[{{ $index }}][unit]">
+                                <option value="">Pilih Unit</option>
+                                <option value="Meter" {{ $item['unit'] == 'Meter' ? 'selected' : '' }}>Meter</option>
+                                <option value="Unit" {{ $item['unit'] == 'Unit' ? 'selected' : '' }}>Unit</option>
+                                <option value="m3" {{ $item['unit'] == 'm3' ? 'selected' : '' }}>Meter Kubik</option>
+                                <option value="m2" {{ $item['unit'] == 'm2' ? 'selected' : '' }}>Meter Persegi</option>
+                            </select>
+                          </div>
                       </div>
-                    </div>
-                  </div>
-                  @endforeach
+                    @endforeach
                   @else
-                  <div class="row" id="">
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <input type="text" id="volume" name="spek[0][volume]" class="form-control"
-                               placeholder="Volume">
-                        <div class="invalid-feedback">
+                    <div class="row" id="">
+                      <div class="col-lg-4">
+                        <div class="mb-3">
+                          <input type="number" id="volume" name="spek[0][volume]" class="form-control"
+                                 placeholder="Volume">
+                          <div class="invalid-feedback">
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <select class="form-control" id="satuan" name="spek[0][satuan]">
-                            <option value="Unit">Unit</option>
+                      <div class="col-lg-3">
+                        <div class="mb-3">
+                          <select class="form-control" id="satuan0" name="spek[0][satuan]" placeholder="Komponen">
+                            <option value="">Pilih Komponen</option>
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
-                            <option value="Meter">Meter</option>
+                            <option value="Jaringan Perpipaan">Jaringan Perpipaan</option>
                             <option value="Tangki Septik">Tangki Septik</option>
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
-                        </select>
-                        {{-- <input type="text" id="satuan" name="spek[0][satuan]" class="form-control"
+                          </select>
+                          {{-- <input type="text" id="satuan" name="spek[0][satuan]" class="form-control"
                                placeholder="Satuan"> --}}
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <select class="form-control" id="unit0" name="spek[0][unit]">
+                            <option value="">Pilih Unit</option>
+                            <option value="Meter">Meter</option>
+                            <option value="Unit">Unit</option>
+                            <option value="m3">Meter Kubik</option>
+                            <option value="m2">Meter Persegi</option>
+                        </select>
                       </div>
                     </div>
+                    @endif
                   </div>
-                  @endif
-                </div>
-                <div id="dynamicAddRemove">
-
-                </div>
-
-                <button class="btn btn-primary submit-fn mt-2" type="submit">Submit form</button>
-              </form>
+                  <div id="dynamicAddRemove">
+                  </div>
+                  <button class="btn btn-primary submit-fn mt-2" type="submit">Submit form</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!--  BEGIN CUSTOM SCRIPTS FILE  -->
-      <x-slot:footerFiles>
-        @vite(['resources/assets/js/forms/bootstrap_validation/bs_validation_script.js'])
+        <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+        <x-slot:footerFiles>
+          @vite(['resources/assets/js/forms/bootstrap_validation/bs_validation_script.js'])
 
-        <script src="{{ asset('plugins/global/vendors.min.js') }}"></script>
-        @vite(['resources/assets/js/custom.js'])
-        <script src="{{ asset('plugins/tomSelect/tom-select.base.js') }}"></script>
-        <script>
+          <script src="{{ asset('plugins/global/vendors.min.js') }}"></script>
+          @vite(['resources/assets/js/custom.js'])
+          <script src="{{ asset('plugins/tomSelect/tom-select.base.js') }}"></script>
+          <script>
             var i = document.querySelector('#index').value;
             $("#dynamic-ar").click(function() {
-            ++i;
-            $("#dynamicAddRemove").append(`
+              ++i;
+              $("#dynamicAddRemove").append(`
             <div class="row" id="field">
                     <div class="col-lg-4">
                       <div class="mb-3">
-                        <input type="text" id="volume" name="spek[${i}][volume]" class="form-control"
+                        <input type="number" id="volume" name="spek[${i}][volume]" class="form-control"
                                placeholder="Volume">
                         <div class="invalid-feedback">
                         </div>
@@ -223,16 +247,25 @@
                     </div>
                     <div class="col-lg-3">
                       <div class="mb-3">
-                        <select class="form-control" id="satuan" name="spek[${i}][satuan]">
-                            <option value="Unit">Unit</option>
+                        <select class="form-control" id="satuan${i}" name="spek[${i}][satuan]">
+                            <option value="">Pilih Komponen</option>
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
-                            <option value="Meter">Meter</option>
+                            <option value="Jaringan Perpipaan">Jaringan Perpipaan</option>
                             <option value="Tangki Septik">Tangki Septik</option>
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
                         </select>
                       </div>
                     </div>
+                    <div class="col-lg-3">
+                        <select class="form-control" id="unit${i}" name="spek[${i}][unit]">
+                            <option value="">Pilih Unit</option>
+                            <option value="Meter">Meter</option>
+                            <option value="Unit">Unit</option>
+                            <option value="m3">Meter Kubik</option>
+                            <option value="m2">Meter Persegi</option>
+                        </select>
+                      </div>
                     <div class="col-lg-2">
                                 <div class="mb-3">
                                     <button type="button" name="add" id="dynamic-ar" class="btn btn-outline-danger remove-input-field">x</button>
@@ -240,80 +273,79 @@
                     </div>
                   </div>
             `);
-          });
-          $(document).on('click', '.remove-input-field', function() {
-            $(this).parents('#field').remove();
-          });
-
-        </script>
-        <script>
-          new TomSelect("#select-output", {
-            create: false,
-            sortField: {
-              field: "text",
-              direction: "asc"
-            }
-          });
-          new TomSelect("#select-kec", {
-            create: false,
-            sortField: {
-              field: "text",
-              direction: "asc"
-            }
-          });
-        </script>
-        <script>
-          new TomSelect("#select-beast", {
-            create: false,
-            sortField: {
-              field: "text",
-              direction: "asc"
-            }
-          });
-        </script>
-        <script>
-          $(document).ready(function() {
-            let desaSelect = new TomSelect(".desa", {
+            });
+            $(document).on('click', '.remove-input-field', function() {
+              $(this).parents('#field').remove();
+            });
+          </script>
+          <script>
+            new TomSelect("#select-output", {
               create: false,
               sortField: {
                 field: "text",
                 direction: "asc"
               }
             });
-            $('#select-kec').on('change', function() {
-              var kec_id = this.value;
-              $("#desa").html('');
-              $.ajax({
-                url: "{{ url('data/desa') }}",
-                type: "GET",
-                data: {
-                  kec_id: kec_id,
-                },
-                dataType: 'json',
-                success: function(result) {
-                  desaSelect.destroy();
-                  $('#desa').html('<option value="">Pilih Desa</option>');
-                  $.each(result, function(key, value) {
-                    $("#desa").append('<option value="' + value
-                      .id + '">' + value.n_desa + '</option>');
-                    if ($("#desa").val() != '{{ $pekerjaan->desa_id }}') {
-                      $("#desa").append('<option value="' + value
-                        .id + '" selected>' + value.n_desa + '</option>'
-                      );
-                    }
-                  });
-                  desaSelect = new TomSelect(".desa", {
-                    create: false,
-                    sortField: {
-                      field: "text",
-                      direction: "asc"
-                    }
-                  });
+            new TomSelect("#select-kec", {
+              create: false,
+              sortField: {
+                field: "text",
+                direction: "asc"
+              }
+            });
+          </script>
+          <script>
+            new TomSelect("#select-beast", {
+              create: false,
+              sortField: {
+                field: "text",
+                direction: "asc"
+              }
+            });
+          </script>
+          <script>
+            $(document).ready(function() {
+              let desaSelect = new TomSelect(".desa", {
+                create: false,
+                sortField: {
+                  field: "text",
+                  direction: "asc"
                 }
               });
-            }).trigger('change');
-          });
-        </script>
-        </x-slot>
-        <!--  END CUSTOM SCRIPTS FILE  -->
-</x-base-layout>
+              $('#select-kec').on('change', function() {
+                var kec_id = this.value;
+                $("#desa").html('');
+                $.ajax({
+                  url: "{{ url('data/desa') }}",
+                  type: "GET",
+                  data: {
+                    kec_id: kec_id,
+                  },
+                  dataType: 'json',
+                  success: function(result) {
+                    desaSelect.destroy();
+                    $('#desa').html('<option value="">Pilih Desa</option>');
+                    $.each(result, function(key, value) {
+                      $("#desa").append('<option value="' + value
+                        .id + '">' + value.n_desa + '</option>');
+                      if ($("#desa").val() != '{{ $pekerjaan->desa_id }}') {
+                        $("#desa").append('<option value="' + value
+                          .id + '" selected>' + value.n_desa + '</option>'
+                        );
+                      }
+                    });
+                    desaSelect = new TomSelect(".desa", {
+                      create: false,
+                      sortField: {
+                        field: "text",
+                        direction: "asc"
+                      }
+                    });
+                  }
+                });
+              }).trigger('change');
+            });
+          </script>
+          </x-slot>
+          <!--  END CUSTOM SCRIPTS FILE  -->
+  </x-base-layout>
