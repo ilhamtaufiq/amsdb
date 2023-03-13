@@ -128,7 +128,7 @@
           <br>
           @empty(!$item->spek)
             @foreach ($item->spek->spek as $s)
-              {{ $s['satuan'] }} : {{ $s['volume'] }} <br>
+              {{ $s['satuan'] }} : {{ $s['volume'] }} Unit <br>
             @endforeach
           @endempty
         </td>
