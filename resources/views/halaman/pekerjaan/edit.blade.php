@@ -223,8 +223,14 @@
                     </div>
                     <div class="col-lg-3">
                       <div class="mb-3">
-                        <input type="text" id="satuan" name="spek[${i}][satuan]" class="form-control"
-                               placeholder="Satuan">
+                        <select class="form-control" id="satuan" name="spek[${i}][satuan]">
+                            <option value="Unit">Unit</option>
+                            <option value="Sambungan Rumah">Sambungan Rumah</option>
+                            <option value="Meter">Meter</option>
+                            <option value="Tangki Septik">Tangki Septik</option>
+                            <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
+                            <option value="IPAL">IPAL</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-lg-2">
