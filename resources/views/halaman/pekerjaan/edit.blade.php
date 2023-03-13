@@ -153,6 +153,7 @@
                             <option value="Sambungan Rumah" {{ $item['satuan'] == 'Sambungan Rumah' ? 'selected':'' }}>Sambungan Rumah</option>
                             <option value="Meter" {{ $item['satuan'] == 'Meter' ? 'selected':'' }}>Meter</option>
                             <option value="Tangki Septik" {{ $item['satuan'] == 'Tangki Septik' ? 'selected':'' }}>Tangki Septik</option>
+                            <option value="Tangki Septik Komunal" {{ $item['satuan'] == 'Tangki Septik Komunal' ? 'selected':'' }}>Tangki Septik Komunal</option>
                             <option value="IPAL" {{ $item['satuan'] == 'IPAL' ? 'selected':'' }}>IPAL</option>
                         </select>
                         {{-- <input type="text" id="satuan" name="spek[{{ $index }}][satuan]" class="form-control"
@@ -178,6 +179,7 @@
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
                             <option value="Meter">Meter</option>
                             <option value="Tangki Septik">Tangki Septik</option>
+                            <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
                         </select>
                         {{-- <input type="text" id="satuan" name="spek[0][satuan]" class="form-control"
