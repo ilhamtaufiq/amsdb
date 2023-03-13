@@ -167,7 +167,7 @@
             echo number_format($persentase * 100, 2, ',', '') . '%';
           @endphp
         </td>
-        <td>13</td>
+        <td></td>
       </tr>
     @endforeach
   </tbody>
