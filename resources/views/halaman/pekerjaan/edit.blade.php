@@ -157,6 +157,9 @@
                                       {{ $item['satuan'] == 'Sambungan Rumah' ? 'selected' : '' }}>Sambungan Rumah
                               </option>
                               <option value="Jaringan Perpipaan" {{ $item['satuan'] == 'Jaringan Perpipaan' ? 'selected' : '' }}>Jaringan Perpipaan</option>
+                              <option value="Reservoir" {{ $item['satuan'] == 'Reservoir' ? 'selected' : '' }}>Reservoir</option>
+                              <option value="Bronkaptering" {{ $item['satuan'] == 'Bronkaptering' ? 'selected' : '' }}>Bronkaptering</option>
+                              <option value="Pompa" {{ $item['satuan'] == 'Pompa' ? 'selected' : '' }}>Pompa</option>
                               <option value="Tangki Septik" {{ $item['satuan'] == 'Tangki Septik' ? 'selected' : '' }}>
                                 Tangki Septik</option>
                               <option value="Tangki Septik Komunal"
@@ -175,6 +178,7 @@
                                 <option value="Unit" {{ $item['unit'] == 'Unit' ? 'selected' : '' }}>Unit</option>
                                 <option value="m3" {{ $item['unit'] == 'm3' ? 'selected' : '' }}>Meter Kubik</option>
                                 <option value="m2" {{ $item['unit'] == 'm2' ? 'selected' : '' }}>Meter Persegi</option>
+                                <option value="l/dtk" {{ $item['unit'] == 'l/dtk' ? 'selected' : '' }}>Liter / Detik</option>
                             </select>
                           </div>
                       </div>
@@ -195,6 +199,9 @@
                             <option value="">Pilih Komponen</option>
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
                             <option value="Jaringan Perpipaan">Jaringan Perpipaan</option>
+                            <option value="Reservoir">Reservoir</option>
+                            <option value="Bronkaptering">Bronkaptering</option>
+                            <option value="Pompa">Pompa</option>
                             <option value="Tangki Septik">Tangki Septik</option>
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
@@ -210,6 +217,7 @@
                             <option value="Unit">Unit</option>
                             <option value="m3">Meter Kubik</option>
                             <option value="m2">Meter Persegi</option>
+                            <option value="l/dtk">Liter / Detik</option>
                         </select>
                       </div>
                     </div>
