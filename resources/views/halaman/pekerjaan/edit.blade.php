@@ -259,6 +259,9 @@
                             <option value="">Pilih Komponen</option>
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
                             <option value="Jaringan Perpipaan">Jaringan Perpipaan</option>
+                            <option value="Reservoir">Reservoir</option>
+                            <option value="Bronkaptering">Bronkaptering</option>
+                            <option value="Pompa">Pompa</option>
                             <option value="Tangki Septik">Tangki Septik</option>
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
@@ -272,6 +275,7 @@
                             <option value="Unit">Unit</option>
                             <option value="m3">Meter Kubik</option>
                             <option value="m2">Meter Persegi</option>
+                            <option value="l/dtk">Liter / Detik</option>
                         </select>
                       </div>
                     <div class="col-lg-2">
