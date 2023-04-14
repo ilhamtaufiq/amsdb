@@ -8,6 +8,7 @@ use App\Models\Pekerjaan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
@@ -32,6 +33,36 @@ class LaporanController extends Controller
             //     $t->where('triwulan', $tw);
             // })->latest()->get(),
         ]);
+    }
+
+    public function xls(Request $request)
+    {
+        $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
+        $tw = $request->triwulan ?? null;
+        $tanggal = $request->tanggal ?? Carbon::now();
+
+        // $keg_id = $request->input('keg_id') ?? null;
+        $keg_id = [
+            $request->keg_id,
+        ];
+
+        $kegiatan = Kegiatan::where('id', $keg_id)->select('bidang', 'sumber_dana')->get();
+
+        $data = Pekerjaan::with('kegiatan', 'realisasi_output')
+        ->whereHas('kegiatan', function ($q) use ($ta, $keg_id) {
+            foreach ($keg_id as $key => $value) {
+                $q->where('tahun_anggaran', $ta)->whereIn('id', $value);
+            }
+        })->with('realisasi_output', function ($t) use ($tw) {
+            $t->where('triwulan', $tw);
+        })->get();
+
+        // return (new UsersExport($S,$E))->download('invoices.xlsx');
+        return Excel::create('New file', function ($excel) {
+            $excel->sheet('New sheet', function ($sheet) {
+                $sheet->loadView('halaman.laporan.pdf');
+            });
+        });
     }
 
     public function pdf(Request $request)
