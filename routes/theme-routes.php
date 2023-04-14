@@ -69,6 +69,7 @@ foreach ($prefixRouters as $prefixRouter) {
         Route::post('/signing', [TandaTerimaController::class, 'signing'])->name('signing');
         Route::get('/surat/tugas/print', [SuratTugasController::class, 'print'])->name('tugas.print');
         Route::get('/laporan/pdf', [LaporanController::class, 'pdf'])->name('laporan.pdf');
+        Route::get('laporan/xls/', [LaporanController::class, 'xls'])->name('laporan.xls');
         Route::get('/output/triwulan', [OutputController::class, 'triwulan'])->name('output.triwulan');
         Route::get('/output/api', [OutputController::class, 'api'])->name('output.api');
 
