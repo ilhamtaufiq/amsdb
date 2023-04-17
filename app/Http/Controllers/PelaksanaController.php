@@ -44,7 +44,6 @@ class PelaksanaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -61,7 +60,7 @@ class PelaksanaController extends Controller
             'alamat' => $request->alamat,
             'npwp' => $request->npwp,
             'direktur' => $request->direktur,
-            'kontak' => $request->kotak,
+            'kontak' => $request->kontak,
         ]);
 
         return redirect('/app/pelaksana/')->with('status', 'Data telah disimpan');
@@ -70,7 +69,6 @@ class PelaksanaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pelaksana  $pelaksana
      * @return \Illuminate\Http\Response
      */
     public function show(Pelaksana $pelaksana)
@@ -81,7 +79,6 @@ class PelaksanaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pelaksana  $pelaksana
      * @return \Illuminate\Http\Response
      */
     public function edit(Pelaksana $pelaksana)
@@ -95,8 +92,6 @@ class PelaksanaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pelaksana  $pelaksana
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pelaksana $pelaksana)
@@ -115,7 +110,6 @@ class PelaksanaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pelaksana  $pelaksana
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pelaksana $pelaksana)
