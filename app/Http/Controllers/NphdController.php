@@ -47,7 +47,6 @@ class NphdController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -80,7 +79,6 @@ class NphdController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Nphd  $nphd
      * @return \Illuminate\Http\Response
      */
     public function show(Nphd $nphd)
@@ -109,7 +107,7 @@ class NphdController extends Controller
         $template->setValue('tgl_spk', $tgl_spk);
         $template->setValue('pelaksana', $pelaksana);
 
-        $filename = 'nphd - '.$nama_pekerjaan.'.docx';
+        $filename = 'nphd_'.$spk.'.docx';
 
         header('Content-Type: application/octet-stream');
         header("Content-Disposition: attachment; filename=$filename");
@@ -119,7 +117,6 @@ class NphdController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Nphd  $nphd
      * @return \Illuminate\Http\Response
      */
     public function edit(Nphd $nphd)
@@ -135,8 +132,6 @@ class NphdController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Nphd  $nphd
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Nphd $nphd)
@@ -160,7 +155,6 @@ class NphdController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Nphd  $nphd
      * @return \Illuminate\Http\Response
      */
     public function destroy(Nphd $nphd)

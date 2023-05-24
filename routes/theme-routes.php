@@ -23,6 +23,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('/');
+Route::get('/tfl', [DashboardController::class, 'tfl'])->name('tfl.dashboard');
+
 // Route::get('/app/nphd/print', [NphdController::class, 'print'])->name('nphd.print');
 
 Route::controller(RegisterController::class)->middleware('guest')->group(function () {

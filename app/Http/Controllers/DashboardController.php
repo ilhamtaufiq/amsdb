@@ -35,4 +35,15 @@ class DashboardController extends Controller
             'kegiatan' => $this->kegiatan,
         ]);
     }
+
+    public function tfl()
+    {
+        return view('halaman.tfl.dashboard', [
+            'title' => 'Dashboard TFL Sanitasi 2023',
+            'pekerjaan' => Pekerjaan::with('kegiatan', 'desa', 'kec')->whereHas('kegiatan', function ($q) {
+                $q->where('id', 6)->where('tahun_anggaran', 2023);
+            })->latest()->get(),
+
+        ]);
+    }
 }
