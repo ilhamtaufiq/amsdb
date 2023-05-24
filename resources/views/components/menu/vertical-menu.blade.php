@@ -44,6 +44,7 @@
                         </div>
                     </div>
                 @endif
+                @role('admin')
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
                     <li class="menu {{ Request::routeIs('home') ? 'active' : '' }}">
@@ -723,6 +724,7 @@
                     </li> -->
 
                 </ul>
+                @endrole
 
             </nav>
 
