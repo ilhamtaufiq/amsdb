@@ -57,12 +57,12 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu list-unstyled {{ Request::is('*/dashboard/*') ? "show" : "" }}" id="dashboard" data-bs-parent="#accordionExample">
+                        <ul class="collapse submenu list-unstyled {{ Request::is('dashboard/*') ? "show" : "" }}" id="dashboard" data-bs-parent="#accordionExample">
                             <li class="{{ Request::routeIs('home') ? 'active' : '' }}">
-                                <a href="{{getRouterValue();}}/dashboard/home"> Ringkasan </a>
+                                <a href="/dashboard/home"> Ringkasan </a>
                             </li>
                             <li class="{{ Request::routeIs('sanitasi') ? 'active' : '' }}">
-                                <a href="{{getRouterValue();}}/dashboard/sanitasi"> Sanitasi </a>
+                                <a href="/dashboard/sanitasi"> Sanitasi </a>
                             </li>
                         </ul>
                     </li>

@@ -110,6 +110,7 @@
                         <option value="Unit">Unit</option>
                         <option value="SR">Sambungan Rumah</option>
                         <option value="KU/HU">Kran Umum/Hidran Umum</option>
+                        <option value="MCK">MCK</option>
                       </select>
                       <div class="invalid-feedback">
                       </div>
