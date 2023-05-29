@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirMinumController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FileUploadController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\WilayahController;
 Route::get('/', [DashboardController::class, 'index'])->name('/');
 Route::get('/dashboard/home', [DashboardController::class, 'index'])->name('home');
 Route::get('/dashboard/sanitasi', [SanitasiController::class, 'index'])->name('sanitasi');
+Route::get('/dashboard/am', [AirMinumController::class, 'index'])->name('am');
 
 Route::get('/tfl', [DashboardController::class, 'tfl'])->name('tfl.dashboard');
 Route::get('/tfl/laporan', [LaporanController::class, 'tfl'])->name('tfl.laporan');

@@ -80,7 +80,7 @@
                     @foreach ($kegiatan as $kegiatan)
                       <tr>
                         <td>
-                          {{ $kegiatan->sub_kegiatan }}
+                            <a class="badge badge-light-success" href="?keg_id={{ $kegiatan->id }}">{{ $kegiatan->sub_kegiatan }}</a>
                         </td>
                         <td class="text-center">Rp{{ number_format($kegiatan->pekerjaan->sum('pagu'), 2, ',', '.') }}
                         </td>
