@@ -52,7 +52,7 @@
                 <div class="w-summary-details">
 
                     <div class="w-summary-info">
-                        <h6>Sarana dan Prasarana</h6>
+                        <h6>Paket Pekerjaan</h6>
                         <p class="summary-count">{{ $sarpras }}</p>
                     </div>
 

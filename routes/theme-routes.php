@@ -16,6 +16,7 @@ use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RelokasiController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SanitasiController;
 use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\TandaTerimaController;
 use App\Http\Controllers\TinjaController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\WilayahController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('/');
 Route::get('/tfl', [DashboardController::class, 'tfl'])->name('tfl.dashboard');
+Route::get('/tfl/laporan', [LaporanController::class, 'tfl'])->name('tfl.laporan');
 
 // Route::get('/app/nphd/print', [NphdController::class, 'print'])->name('nphd.print');
 
@@ -66,7 +68,9 @@ foreach ($prefixRouters as $prefixRouter) {
     route::get('/tandaterima/print', [TandaTerimaController::class, 'print'])->name('tandaterima.print');
 
     Route::prefix($prefixRouter)->middleware('auth')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+        Route::get('/dashboard/home', [DashboardController::class, 'index'])->name('home');
+        Route::get('/dashboard/sanitasi', [SanitasiController::class, 'index'])->name('sanitasi');
+
         Route::get('/sign', [TandaTerimaController::class, 'sign'])->name('sign');
         Route::post('/signing', [TandaTerimaController::class, 'signing'])->name('signing');
         Route::get('/surat/tugas/print', [SuratTugasController::class, 'print'])->name('tugas.print');
