@@ -124,7 +124,6 @@
                         </td>
                         <td>{{ $pekerjaan->nama_pekerjaan }} <span
                                 class="badge badge-warning">{{ $pekerjaan->pokir == 1 ? 'Pokir' : '' }}</span> <br>
-                          Target {{ $pekerjaan->output }} {{ $pekerjaan->satuan_output }}
                         </td>
                         <td>{{ $pekerjaan->output }} {{ $pekerjaan->satuan_output }}</td>
                         <td>
