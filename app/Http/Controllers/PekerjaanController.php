@@ -122,7 +122,6 @@ class PekerjaanController extends Controller
             'kegiatan' => $this->kegiatan,
             'kecamatan' => $this->kec,
             'desa' => $this->desa,
-
         ]);
     }
 
@@ -146,16 +145,21 @@ class PekerjaanController extends Controller
         ]);
         $pekerjaan->update($attributes);
         $pekerjaan_id = $request->pekerjaan_id;
-        $spesifikasi = $request->spek;
+        $i = 0;
 
         $data = [];
-        foreach ($spesifikasi as $s) {
+        foreach ($request->spek as $key => $value) {
             Spek::updateOrCreate(
                 [
-                    'pekerjaan_id' => $pekerjaan->id,
+                    'id' => $request->spek_id,
                 ],
                 [
-                    'spek' => $spesifikasi,
+                    'pekerjaan_id' => $pekerjaan->id,
+                    'volume' => $value['volume'],
+                    'komponen' => $value['komponen'],
+                    'satuan' => $value['satuan'],
+
+
                 ]
             );
 
