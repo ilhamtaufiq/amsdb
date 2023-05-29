@@ -35,6 +35,19 @@ class LaporanController extends Controller
         ]);
     }
 
+    public function tfl(Request $request)
+    {
+        $ta = 2023;
+        $keg_id = 6;
+
+        return view('halaman.tfl.laporan', [
+            'data' => Pekerjaan::with('kegiatan', 'desa', 'kec', 'realisasi_output')->whereHas('kegiatan', function ($q) {
+                $q->where('id', 6)->where('tahun_anggaran', 2023);
+            })->where('id', $request->sanitasi)->first(),
+
+        ]);
+    }
+
     public function xls(Request $request)
     {
         $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
@@ -115,7 +128,6 @@ class LaporanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -126,7 +138,6 @@ class LaporanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
     public function show(Laporan $laporan)
@@ -137,7 +148,6 @@ class LaporanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
     public function edit(Laporan $laporan)
@@ -148,8 +158,6 @@ class LaporanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Laporan $laporan)
@@ -160,7 +168,6 @@ class LaporanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
     public function destroy(Laporan $laporan)

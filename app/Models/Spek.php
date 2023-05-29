@@ -29,4 +29,14 @@ class Spek extends Model
 
         $this->attributes['spek'] = json_encode($spek);
     }
+
+  /**
+   * Get the pekerjaan that owns the Spek
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function pekerjaan()
+  {
+      return $this->belongsTo(Pekerjaan::class);
+  }
 }

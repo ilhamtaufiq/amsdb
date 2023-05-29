@@ -63,7 +63,6 @@ class PekerjaanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -98,7 +97,6 @@ class PekerjaanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
     public function show(Pekerjaan $pekerjaan)
@@ -114,7 +112,6 @@ class PekerjaanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
     public function edit(Pekerjaan $pekerjaan)
@@ -132,8 +129,6 @@ class PekerjaanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pekerjaan $pekerjaan)
@@ -154,13 +149,13 @@ class PekerjaanController extends Controller
         $spesifikasi = $request->spek;
 
         $data = [];
-        foreach($spesifikasi as $s) {
+        foreach ($spesifikasi as $s) {
             Spek::updateOrCreate(
                 [
                     'pekerjaan_id' => $pekerjaan->id,
                 ],
                 [
-                    'spek' => $spesifikasi
+                    'spek' => $spesifikasi,
                 ]
             );
 
@@ -172,7 +167,6 @@ class PekerjaanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pekerjaan $pekerjaan)

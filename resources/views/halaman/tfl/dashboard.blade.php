@@ -58,8 +58,6 @@
                                             <th>Nama Pekerjaan</th>
                                             <th>Desa</th>
                                             <th>Kecamatan</th>
-                                            <th>Pagu</th>
-                                            <th>Kegiatan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -73,10 +71,6 @@
                                         <td>{{ $pekerjaan->nama_pekerjaan }} <span class="badge badge-warning">{{ $pekerjaan->pokir == 1 ? 'Pokir':'' }}</span></td>
                                         <td>{{ $pekerjaan->desa->n_desa }}</td>
                                         <td>{{ $pekerjaan->kec->n_kec }}</td>
-                                        <td>Rp{{ number_format($pekerjaan->pagu, 0, ',', '.') }}</td>
-                                        <td>
-                                          {{ $pekerjaan->kegiatan->sub_kegiatan }}
-                                        </td>
                                         <td>
                                           <div class="btn-group">
                                             <a href="{{ route('pekerjaan.show', $pekerjaan->id) }}" class="action-btn btn-view bs-tooltip me-2"
