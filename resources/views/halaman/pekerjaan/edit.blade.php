@@ -119,6 +119,9 @@
                         </option>
                         <option value="KU/HU" {{ $pekerjaan->satuan_output == 'KU/HU' ? 'selected' : '' }}>Kran
                           Umum/Hidran Umum</option>
+                          <option value="MCK" {{ $pekerjaan->satuan_output == 'MCK' ? 'selected' : '' }}>MCK
+                        </option>
+
                       </select>
                       <div class="invalid-feedback">
                       </div>
@@ -205,6 +208,8 @@
                             <option value="Tangki Septik">Tangki Septik</option>
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
+                            <option value="MCK">MCK</option>
+
                           </select>
                           {{-- <input type="text" id="satuan" name="spek[0][satuan]" class="form-control"
                                placeholder="Satuan"> --}}
@@ -265,6 +270,8 @@
                             <option value="Tangki Septik">Tangki Septik</option>
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
+                            <option value="MCK">MCK</option>
+
                         </select>
                       </div>
                     </div>

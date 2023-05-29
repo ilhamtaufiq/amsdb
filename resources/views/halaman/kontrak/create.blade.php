@@ -37,40 +37,40 @@
                     action="{{ route('kontrak.store') }}" novalidate>
                 @csrf
                 <div class="form-row">
-                <div class="row">
+                  <div class="row">
                     <div class="col-md-12 mb-4">
-                        <label for="pekerjaan">Nama Pekerjaan</label>
-                        <select class="select form-control" name="pekerjaan_id" id="select-beast"
-                                placeholder="Pilih Sub Kegiatan" autocomplete="off" required="">
-                          <option value="">Pilih Pekerjaan</option>
-                          @foreach ($pekerjaan as $k)
-                            <option value="{{ $k->id }}"> {{ $k->nama_pekerjaan }}</option>
-                          @endforeach
-                        </select>
-                        <div class="invalid-feedback">
-                        </div>
+                      <label for="pekerjaan">Nama Pekerjaan</label>
+                      <select class="select form-control" name="pekerjaan_id" id="select-beast"
+                              placeholder="Pilih Sub Kegiatan" autocomplete="off" required="">
+                        <option value="">Pilih Pekerjaan</option>
+                        @foreach ($pekerjaan as $k)
+                          <option value="{{ $k->id }}"> {{ $k->nama_pekerjaan }}</option>
+                        @endforeach
+                      </select>
+                      <div class="invalid-feedback">
                       </div>
-                </div>
-                <div class="row">
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-md-3 mb-4">
-                        <label for="pekerjaan">Tanggal Mulai</label>
-                        <input type="date" class="ts-control" placeholder="Tanggal Mulai" name="tgl_mulai">
-                        <div class="invalid-feedback">
-                        </div>
+                      <label for="pekerjaan">Tanggal Mulai</label>
+                      <input type="date" class="ts-control date" placeholder="Tanggal Mulai" name="tgl_mulai">
+                      <div class="invalid-feedback">
                       </div>
+                    </div>
                     <div class="col-md-3 mb-4">
-                        <label for="pekerjaan">Tanggal Selesai</label>
-                        <input type="date" class="ts-control" placeholder="Tanggal Selesai" name="tgl_selesai">
-                        <div class="invalid-feedback">
-                        </div>
+                      <label for="pekerjaan">Tanggal Selesai</label>
+                      <input type="date" class="ts-control" placeholder="Tanggal Selesai" name="tgl_selesai">
+                      <div class="invalid-feedback">
                       </div>
+                    </div>
                     <div class="col-md-6 mb-4">
-                        <label for="pekerjaan">Nilai Kontrak</label>
-                        <input type="number" class="ts-control" placeholder="Nilai Kontrak" name="nilai_kontrak">
-                        <div class="invalid-feedback">
-                        </div>
+                      <label for="pekerjaan">Nilai Kontrak</label>
+                      <input type="number" class="ts-control" placeholder="Nilai Kontrak" name="nilai_kontrak">
+                      <div class="invalid-feedback">
                       </div>
-                </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-md-4 mb-4">
                       <label for="pelaksana">Pelaksana</label>
@@ -154,6 +154,18 @@
               }
             };
             new TomSelect(el, settings);
+          });
+          // Use datepicker on the date inputs
+          $("input[type=date]").datepicker({
+            dateFormat: 'yy-mm-dd',
+            onSelect: function(dateText, inst) {
+              $(inst).val(dateText); // Write the value in the input
+            }
+          });
+
+          // Code below to avoid the classic date-picker
+          $("input[type=date]").on('click', function() {
+            return false;
           });
         </script>
         </x-slot>
