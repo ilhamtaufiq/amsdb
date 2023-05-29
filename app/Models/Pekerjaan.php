@@ -90,6 +90,6 @@ class Pekerjaan extends Model
     */
    public function spek()
    {
-       return $this->hasMany(spek::class, 'pekerjaan_id', 'id');
+       return $this->hasMany(Spek::class, 'pekerjaan_id', 'id');
    }
 }
