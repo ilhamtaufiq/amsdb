@@ -13,14 +13,12 @@ class Spek extends Model
 
     protected $guarded = [];
 
-
-
     /**
      * Get all of the pekerjan for the Spek
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pekerjan()
+    public function pekerjaan()
     {
         return $this->hasMany(Pekerjaan::class, 'id', 'pekerjaan_id');
     }

@@ -64,6 +64,9 @@
                             <li class="{{ Request::routeIs('sanitasi') ? 'active' : '' }}">
                                 <a href="/dashboard/sanitasi"> Sanitasi </a>
                             </li>
+                            <li class="{{ Request::routeIs('am') ? 'active' : '' }}">
+                                <a href="/dashboard/am"> Air Minum </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="menu menu-heading">
