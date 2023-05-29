@@ -13,30 +13,15 @@ class Spek extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'spek' => 'array',
-    ];
 
-    public function setSpekAttribute($value)
+
+    /**
+     * Get all of the pekerjan for the Spek
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pekerjan()
     {
-        $spek = [];
-
-        foreach ($value as $array_item) {
-            if (! is_null($array_item['volume'])) {
-                $spek[] = $array_item;
-            }
-        }
-
-        $this->attributes['spek'] = json_encode($spek);
+        return $this->hasMany(Pekerjaan::class, 'id', 'pekerjaan_id');
     }
-
-  /**
-   * Get the pekerjaan that owns the Spek
-   *
-   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-   */
-  public function pekerjaan()
-  {
-      return $this->belongsTo(Pekerjaan::class);
-  }
 }

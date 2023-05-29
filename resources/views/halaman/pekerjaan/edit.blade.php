@@ -119,9 +119,6 @@
                         </option>
                         <option value="KU/HU" {{ $pekerjaan->satuan_output == 'KU/HU' ? 'selected' : '' }}>Kran
                           Umum/Hidran Umum</option>
-                          <option value="MCK" {{ $pekerjaan->satuan_output == 'MCK' ? 'selected' : '' }}>MCK
-                        </option>
-
                       </select>
                       <div class="invalid-feedback">
                       </div>
@@ -129,20 +126,9 @@
                   </div>
                   <label>Spesifikasi Teknis <button type="button" name="add" id="dynamic-ar"
                             class="btn btn-sm btn-outline-primary">Tambah</button></label>
-                  @php
-                    $nol = 0;
-                    if ($pekerjaan->spek != null) {
-                        # code...
-                        $index = array_key_last($pekerjaan->spek->spek);
-                    } else {
-                        # code...
-                        $index = $nol;
-                    }
-
-                  @endphp
-                  <input class="form-control" type="hidden" id="index" value="{{ $index }}">
                   @empty(!$pekerjaan->spek)
-                    @foreach ($pekerjaan->spek->spek as $index => $item)
+                    @foreach ($pekerjaan->spek as $index => $item)
+                    <input type="text" name="spek_id" value="{{ $item->id }}" style="display: none;">
                       <div class="row" id="">
                         <div class="col-lg-4">
                           <div class="mb-3">
@@ -154,34 +140,35 @@
                         </div>
                         <div class="col-lg-3">
                           <div class="mb-3">
-                            <select class="form-control" id="satuan{{ $index }}"
-                                    name="spek[{{ $index }}][satuan]">
+                            <select class="form-control" id="satuan{{ $index }}" name="spek[{{ $index }}][komponen]">
                               <option value="Sambungan Rumah"
                                       {{ $item['satuan'] == 'Sambungan Rumah' ? 'selected' : '' }}>Sambungan Rumah
                               </option>
-                              <option value="Jaringan Perpipaan" {{ $item['satuan'] == 'Jaringan Perpipaan' ? 'selected' : '' }}>Jaringan Perpipaan</option>
-                              <option value="Reservoir" {{ $item['satuan'] == 'Reservoir' ? 'selected' : '' }}>Reservoir</option>
-                              <option value="Bronkaptering" {{ $item['satuan'] == 'Bronkaptering' ? 'selected' : '' }}>Bronkaptering</option>
-                              <option value="Pompa" {{ $item['satuan'] == 'Pompa' ? 'selected' : '' }}>Pompa</option>
-                              <option value="Tangki Septik" {{ $item['satuan'] == 'Tangki Septik' ? 'selected' : '' }}>
+                              <option value="Jaringan Perpipaan" {{ $item['komponen'] == 'Jaringan Perpipaan' ? 'selected' : '' }}>Jaringan Perpipaan</option>
+                              <option value="Reservoir" {{ $item['komponen'] == 'Reservoir' ? 'selected' : '' }}>Reservoir</option>
+                              <option value="Bronkaptering" {{ $item['komponen'] == 'Bronkaptering' ? 'selected' : '' }}>Bronkaptering</option>
+                              <option value="Pompa" {{ $item['komponen'] == 'Pompa' ? 'selected' : '' }}>Pompa</option>
+                              <option value="Tangki Septik" {{ $item['komponen'] == 'Tangki Septik' ? 'selected' : '' }}>
                                 Tangki Septik</option>
                               <option value="Tangki Septik Komunal"
-                                      {{ $item['satuan'] == 'Tangki Septik Komunal' ? 'selected' : '' }}>Tangki Septik
+                                      {{ $item['satkomponenuan'] == 'Tangki Septik Komunal' ? 'selected' : '' }}>Tangki Septik
                                 Komunal</option>
-                              <option value="IPAL" {{ $item['satuan'] == 'IPAL' ? 'selected' : '' }}>IPAL</option>
+                              <option value="IPAL" {{ $item['komponen'] == 'IPAL' ? 'selected' : '' }}>IPAL</option>
+                              <option value="MCK" {{ $item['komponen'] == 'MCK' ? 'selected' : '' }}>IPAL</option>
+
                             </select>
                             {{-- <input type="text" id="satuan" name="spek[{{ $index }}][satuan]" class="form-control"
                                placeholder="Satuan" value="{{ $item['satuan'] ?? '' }}"> --}}
                           </div>
                         </div>
                         <div class="col-lg-3">
-                            <select class="form-control" id="unit{{ $index }}" name="spek[{{ $index }}][unit]">
-                                <option value="">Pilih Unit</option>
-                                <option value="Meter" {{ $item['unit'] == 'Meter' ? 'selected' : '' }}>Meter</option>
-                                <option value="Unit" {{ $item['unit'] == 'Unit' ? 'selected' : '' }}>Unit</option>
-                                <option value="m3" {{ $item['unit'] == 'm3' ? 'selected' : '' }}>Meter Kubik</option>
-                                <option value="m2" {{ $item['unit'] == 'm2' ? 'selected' : '' }}>Meter Persegi</option>
-                                <option value="l/dtk" {{ $item['unit'] == 'l/dtk' ? 'selected' : '' }}>Liter / Detik</option>
+                            <select class="form-control" id="satuan{{ $index }}" name="spek[{{ $index }}][satuan]">
+                                <option value="">Pilih Satuan</option>
+                                <option value="Meter" {{ $item['satuan'] == 'Meter' ? 'selected' : '' }}>Meter</option>
+                                <option value="Unit" {{ $item['satuan'] == 'Unit' ? 'selected' : '' }}>Unit</option>
+                                <option value="m3" {{ $item['satuan'] == 'm3' ? 'selected' : '' }}>Meter Kubik</option>
+                                <option value="m2" {{ $item['satuan'] == 'm2' ? 'selected' : '' }}>Meter Persegi</option>
+                                <option value="l/dtk" {{ $item['satuan'] == 'l/dtk' ? 'selected' : '' }}>Liter / Detik</option>
                             </select>
                           </div>
                       </div>
@@ -198,7 +185,7 @@
                       </div>
                       <div class="col-lg-3">
                         <div class="mb-3">
-                          <select class="form-control" id="satuan0" name="spek[0][satuan]" placeholder="Komponen">
+                          <select class="form-control" id="satuan0" name="spek[0][komponen]" placeholder="Komponen">
                             <option value="">Pilih Komponen</option>
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
                             <option value="Jaringan Perpipaan">Jaringan Perpipaan</option>
@@ -209,14 +196,13 @@
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
                             <option value="MCK">MCK</option>
-
                           </select>
                           {{-- <input type="text" id="satuan" name="spek[0][satuan]" class="form-control"
                                placeholder="Satuan"> --}}
                         </div>
                       </div>
                       <div class="col-lg-3">
-                        <select class="form-control" id="unit0" name="spek[0][unit]">
+                        <select class="form-control" id="unit0" name="spek[0][satuan]">
                             <option value="">Pilih Unit</option>
                             <option value="Meter">Meter</option>
                             <option value="Unit">Unit</option>
@@ -245,14 +231,14 @@
           @vite(['resources/assets/js/custom.js'])
           <script src="{{ asset('plugins/tomSelect/tom-select.base.js') }}"></script>
           <script>
-            var i = document.querySelector('#index').value;
+            var i = 0;
             $("#dynamic-ar").click(function() {
               ++i;
               $("#dynamicAddRemove").append(`
             <div class="row" id="field">
                     <div class="col-lg-4">
                       <div class="mb-3">
-                        <input type="number" id="volume" name="spek[${i}][volume]" class="form-control"
+                        <input type="number" id="volume${i}" name="spek[${i}][volume]" class="form-control"
                                placeholder="Volume">
                         <div class="invalid-feedback">
                         </div>
@@ -260,7 +246,7 @@
                     </div>
                     <div class="col-lg-3">
                       <div class="mb-3">
-                        <select class="form-control" id="satuan${i}" name="spek[${i}][satuan]">
+                        <select class="form-control" id="komponen${i}" name="spek[${i}][komponen]">
                             <option value="">Pilih Komponen</option>
                             <option value="Sambungan Rumah">Sambungan Rumah</option>
                             <option value="Jaringan Perpipaan">Jaringan Perpipaan</option>
@@ -271,12 +257,11 @@
                             <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
                             <option value="IPAL">IPAL</option>
                             <option value="MCK">MCK</option>
-
                         </select>
                       </div>
                     </div>
                     <div class="col-lg-3">
-                        <select class="form-control" id="unit${i}" name="spek[${i}][unit]">
+                        <select class="form-control" id="komponen${i}" name="spek[${i}][satuan]">
                             <option value="">Pilih Unit</option>
                             <option value="Meter">Meter</option>
                             <option value="Unit">Unit</option>
