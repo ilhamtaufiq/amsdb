@@ -13,7 +13,7 @@ class SanitasiController extends Controller
     public function index(Request $request)
     {
         $ta = $request->tahun_anggaran ?? Carbon::now()->format('Y');
-        $kegiatan = Kegiatan::where('tahun_anggaran', $ta)->where('bidang', 'Air Minum')->pluck('id');
+        $kegiatan = Kegiatan::where('tahun_anggaran', $ta)->where('bidang', 'Sanitasi')->pluck('id');
         $keg = [$request->keg_id ?? $kegiatan[0]];
 
         $pekerjaan = Pekerjaan::with('kegiatan', 'spek')->whereHas('kegiatan', function ($q) use ($ta) {
